@@ -2,10 +2,14 @@
   "name": "portfolio-site",
   "version": "0.1.0",
   "dependencies": {
+    "@react-three/fiber": "^8.13.0",
+    "@types/three": "^0.152.0",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "styled-components": "^5.1.1"
+    "styled-components": "^5.1.1",
+    "three": "^0.152.2",
+    "usehooks-ts": "^2.9.1"
   },
   "scripts": {
     "dev": "next dev",
@@ -19,10 +23,10 @@
     ]
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.1",
     "@types/node": "20.1.7",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
+    "@types/styled-components": "^5.1.1",
     "autoprefixer": "10.4.14",
     "next": "13.4.2",
     "react": "18.2.0",
