@@ -1,83 +1,62 @@
-import Head from 'next/head';
-
-import theme from '../data/theme';
-import { ThemeProvider } from 'styled-components';
 import styled from 'styled-components';
-import Header from './Header';
-import Main from './Main';
 import { useEffect, useState } from 'react';
 import React from 'react';
-import { useWindowSize } from 'usehooks-ts';
-import Galaxy from './animations/Galaxy';
+import Stars from './animations/Stars';
+import Globe from './animations/Globe';
 
 const Container = styled.div`
-  display:contents;
+  position:relative;
+  display: contents;
+  height: 100%;
+  transform-style: preserve-3d;
+  z-index: -1000;
+  min-height: 200vh;
 `
 
-
-const Comet = styled.ellipse`
-	transform-origin: center center;
-	animation: comet 5s linear infinite;
-
-	@keyframes comet {
-		0%,
-		40% {
-			transform: translateX(0);
-			opacity: 0;
-		}
-		50% {
-			opacity: 1;
-		}
-		60%,
-		100% {
-			transform: translateX(-100vmax);
-			opacity: 0;
-		}
-	}
-}
-`
-
-function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
+const GlobeContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 500px;
+  height: 1000px;
+  z-index: -999;
+  `
 
 export default function Background() {
-  
 
-  const [comet, setComet]: any = useState({ rotate: Math.random() * 360, cx: Math.random() * 100, cy: Math.random() * 100, rx: Math.random() * 10, ry: Math.random() * 10 })
-  const { width, height } = useWindowSize();
-  
+  const [stars, setStars]: any = useState([])
+
   useEffect(() => {
-  
-    setInterval(() => {
-      const left = Math.random() > 0.5
+    
+    let stars: any[] = []
 
-      setComet({ // fix
-        rotate: left ? Math.random() * -360 : Math.random() * 360,
-        cx: left ? 0 : width,
-        cy: getRandomNumber(0, height),
-        rx: getRandomNumber(100, 200),
-        ry: getRandomNumber(1, 3)
-      })
-    }, 5_000)
+    for (let i = 0; i < 3; i++) {
+      let circles: any[] = []
+      for (let i = 0; i < 200; i++) {
+        const cx = Math.round(Math.random() * 10000) / 100 + '%';
+        const cy = Math.round(Math.random() * 10000) / 100 + '%';
+        const r = Math.round((Math.random() + 0.5) * 10) / 10;
+        circles.push({ cx, cy, r })
+      }
+      stars.push({ circles })
+    }
+    setStars(stars)
 
-  }, [width, height])
+   
+
+  }, [])
+
 
   return (
     <Container>
-      <Galaxy></Galaxy>
-      {/* <svg style={{ width: "100%", height: "100%" }}>
-        <defs>
-          <radialGradient id="comet-gradient" cx="0" cy=".5" r="0.5">
-            <stop offset="0%" stopColor="rgba(255,255,255,.8)"></stop>
-            <stop offset="100%" stopColor="rgba(255,255,255,0)"></stop>
-          </radialGradient>
-        </defs>
-        <g transform={`rotate(${comet.rotate})`}>
-          <Comet fill="url(#comet-gradient)" cx={comet.cx} cy={comet.cy} rx={comet.rx} ry={comet.ry}></Comet>
-        </g>
-      </svg> */}
-    </Container>
+       {
+        stars.map(({ circles }, index) =>
+         <Stars circles={circles} index={index}></Stars>
+        )
+      }
+      <GlobeContainer>
+        <Globe></Globe>
+      </GlobeContainer>
+    </Container >
   )
 }

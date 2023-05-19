@@ -19,7 +19,6 @@ const MainBody = styled.div`
 export default function Main({ children }) {
   return (
     <MainBody>
-     
       {children}
     </MainBody>
   )

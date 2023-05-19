@@ -4,11 +4,15 @@ import styled from 'styled-components';
 import { TextureLoader } from 'three';
 
 
-const StarryNight = styled.svg`
-  width: 100%;
-  height: 200%;
-  position: fixed;
+const SVG = styled.svg<any>`
   animation: twinkle var(--twinkle-duration) ease-in-out infinite;
+  position: absolute;
+	overflow: hidden;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1000;
+  transform: ${({translate,scale})=> `translateZ(${translate}px) scale(${scale});`}
 
   &:nth-child(2) {
     animation-delay: calc(var(--twinkle-duration) * -0.33);
@@ -26,8 +30,6 @@ const StarryNight = styled.svg`
 
 const Star = styled.circle`
   fill: white;
-  width: 100%;
-  height: 100%;
 
   &:nth-child(3n) {
     opacity: 0.8;
@@ -43,18 +45,12 @@ const Star = styled.circle`
   }
 `
 
-export default function Stars({circles, index}) {  
-  const [starTranslateY, setStarTransformY] = useState(0)
-
-  useEffect(() => {
-    window.addEventListener('scroll', () => {
-      setStarTransformY(window.scrollY * index * -0.1)
-    })
-  }, [starTranslateY])
-
+export default function Stars({circles, index}) {
+  const translate = index * -10
+  const scale = 1 + index
   return (
-    <StarryNight style={{transform: `translateY(${starTranslateY}px)`}}>
+  <SVG translate={translate} scale={scale}>
       {circles.map(({ cx, cy, r }, index) => <Star key={index} cx={cx} cy={cy} r={r} />)}
-    </StarryNight>
+    </SVG>
   )
 }

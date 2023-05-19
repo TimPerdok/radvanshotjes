@@ -1,18 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import Block from './Block';
-import LineAnimation from '../animations/LineAnimation';
+import FadeInContainer from '../animations/FadeInContainer';
 
 
-export default function TitleBlock({ title, subtitle }) {
+
+export default function TitleBlock({ children }) {
   return (
     <Block>
-      <h1>
-        {title}
-      </h1>
-      <h2>
-        {subtitle}
-      </h2>
+      {
+      children.map((child, index) => (
+        <FadeInContainer key={index} delay={index * 250}>
+          {child}
+        </FadeInContainer>
+      ))
+      }
     </Block>
   )
 }
+

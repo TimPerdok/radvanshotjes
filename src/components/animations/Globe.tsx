@@ -15,9 +15,9 @@ const Sphere = () => {
   });
 
   return (
-    <mesh ref={sphereRef} position={[3,-3, -2]}>
+    <mesh ref={sphereRef} position={[3,0, -5]}>
       <sphereBufferGeometry args={[6, 64, 64]} />
-      <meshStandardMaterial map={texture} metalness={0.6} roughness={0.8}></meshStandardMaterial>
+      <meshStandardMaterial map={texture}  metalness={0.6} roughness={0.8}></meshStandardMaterial>
     </mesh>
   );
 };
