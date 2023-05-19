@@ -1,6 +1,7 @@
 {
   "name": "portfolio-site",
   "version": "0.1.0",
+  "homepage": ".",
   "dependencies": {
     "@react-three/fiber": "^8.13.0",
     "@types/three": "^0.152.0",
