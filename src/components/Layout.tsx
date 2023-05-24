@@ -76,8 +76,8 @@ export default function Layout({ children }) {
         <Container>
           <Head>
             <title>Tim Perdok</title>
-            <link rel="icon" href="/favicon.ico" />
-            <link rel="manifest" href="/manifest.json"></link>
+            <link rel="icon" href="./favicon.ico" />
+            <link rel="manifest" href="./manifest.json"></link>
           </Head>
           <Background />
           <Header />
