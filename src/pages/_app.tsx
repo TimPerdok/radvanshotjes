@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }) {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       console.log("loading")
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('./sw.js')
           .then((registration) => {
             console.log('SW registered: ', registration);
           })
