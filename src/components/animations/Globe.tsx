@@ -6,7 +6,7 @@ import { TextureLoader } from 'three';
 
 const Sphere = () => {
   const sphereRef: any = React.useRef();
-  const texture = new TextureLoader().load('/images/globe4.jpg');
+  const texture = new TextureLoader().load('./images/globe4.jpg');
 
   useFrame(() => {
     if (!sphereRef?.current) return;
