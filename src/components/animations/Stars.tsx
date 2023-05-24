@@ -45,21 +45,28 @@ const Star = styled.circle<any>`
 `
 
 export default function Stars({ circles, index }) {
+  const [stars, setStars] = useState([]);
   index = index + 3
   const translate = index * -10;
   const scale = 1 + index;
 
+  useEffect(() => {
+    const stars = circles.map(({ cx, cy, r }, index) => (
+      <Star key={index} cx={cx} cy={cy} r={r} style={{
+        animationDelay: `${generateRandomInteger(0, 3)}s`
+      }} />
+    ))
+    setStars(stars)
+  }, [])
+
   function generateRandomInteger(min, max) {
-    return Math.floor(min + Math.random()*(max - min + 1))
+    return Math.floor(min + Math.random() * (max - min + 1))
   }
+
 
   return (
     <SVG translate={translate} scale={scale}>
-      {circles.map(({ cx, cy, r }, index) => (
-        <Star key={index} cx={cx} cy={cy} r={r} style={{
-          animationDelay: `${generateRandomInteger(0,3)}s`
-        }} />
-      ))}
+      {stars}
     </SVG>
   );
 }

@@ -1,5 +1,4 @@
 import Document, { Head, Html, Main, NextScript } from "next/document";
-import Script from "next/script";
 import React from "react";
 import { ServerStyleSheet } from "styled-components";
 
@@ -32,7 +31,7 @@ export default class MyDocument extends Document {
           <link rel="icon" href="./favicon.ico" />
           <link rel="manifest" href="./manifest.json"></link>
         </Head>
-        <body style={{ background: `linear-gradient(180deg, rgba(22,22,29,1) 0%, rgba(31,31,58,1) 35%, rgba(59,47,74,1) 71%,  rgba(84,62,110,1) 100%)`, height: "100vh", width: "100vw" }}>
+        <body style={{ background: `linear-gradient(180deg, rgba(22,22,29,1) 0%, rgba(31,31,58,1) 35%, rgba(59,47,74,1) 71%,  rgba(84,62,110,1) 100%)`}}>
           <Main />
           <NextScript />
         </body>
