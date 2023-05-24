@@ -5,7 +5,7 @@ import Stars from './animations/Stars';
 import Globe from './animations/Globe';
 
 const Container = styled.div`
-  position:relative;
+  position: relative;
   display: contents;
   height: 100%;
   transform-style: preserve-3d;
@@ -18,14 +18,14 @@ const GlobeContainer = styled.div`
   top: 0;
   right: 0;
   width: 500px;
+  max-width: 100vw;
+  max-height: 100vh;
   height: 1000px;
   z-index: -999;
   `
 
 export default function Background() {
-
   const [stars, setStars]: any = useState([])
-
   useEffect(() => {
     
     let stars: any[] = []
@@ -41,9 +41,6 @@ export default function Background() {
       stars.push({ circles })
     }
     setStars(stars)
-
-   
-
   }, [])
 
 
@@ -51,7 +48,7 @@ export default function Background() {
     <Container>
        {
         stars.map(({ circles }, index) =>
-         <Stars circles={circles} index={index}></Stars>
+         <Stars key={index} circles={circles} index={index}></Stars>
         )
       }
       <GlobeContainer>

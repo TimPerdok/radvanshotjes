@@ -1,10 +1,7 @@
 import React, { Component, useEffect } from "react";
 import Layout from "../components/Layout";
 
-
 export default function App({ Component, pageProps }) {
-  // register sw
-  
   useEffect(() => {
     if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
       console.log("loading")

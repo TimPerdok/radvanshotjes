@@ -15,9 +15,9 @@ const Bar = styled.div`
 
 export default function Header({ }) {
   const links = [
-    "Home",
-    "About",
-    "Projects"
+    "",
+    "about",
+    "projects"
   ]
   return (
     <Bar>

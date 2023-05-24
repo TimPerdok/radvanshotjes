@@ -17,7 +17,7 @@ export default function HorizontalNavigation({ links }) {
   return (
     <Bar>
       {
-        links?.map((link) => <NavigationItem key={link}><Link  href={link}>link</Link></NavigationItem>)
+        links?.map((link) => <NavigationItem key={link}><Link prefetch={true} href={`/${link}`}>Link</Link></NavigationItem>)
       }
     </Bar>
   )

@@ -3,33 +3,25 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { TextureLoader } from 'three';
 
-
 const SVG = styled.svg<any>`
-  animation: twinkle var(--twinkle-duration) ease-in-out infinite;
   position: absolute;
-	overflow: hidden;
+  overflow: hidden;
   width: 100%;
   height: 100%;
   object-fit: cover;
   z-index: -1000;
-  transform: ${({translate,scale})=> `translateZ(${translate}px) scale(${scale});`}
+  transform: ${({ translate, scale }) => `translateZ(${translate}px) scale(${scale});`}
 
-  &:nth-child(2) {
-    animation-delay: calc(var(--twinkle-duration) * -0.33);
-  }
-  &:nth-child(3) {
-    animation-delay: calc(var(--twinkle-duration) * -0.66);
-  }
 
-  @keyframes twinkle {
-    25% {
-      opacity: 0;
-    }
-  }
+  
 `
 
-const Star = styled.circle`
+const Star = styled.circle<any>`
   fill: white;
+  
+  
+
+  animation: twinkle var(--twinkle-duration) ease-in-out infinite;
 
   &:nth-child(3n) {
     opacity: 0.8;
@@ -43,14 +35,31 @@ const Star = styled.circle`
   &:nth-child(19n) {
     opacity: 0.2;
   }
+
+  @keyframes twinkle {
+    25% {
+      opacity: 0;
+    }
+  }
+
 `
 
-export default function Stars({circles, index}) {
-  const translate = index * -10
-  const scale = 1 + index
+export default function Stars({ circles, index }) {
+  index = index + 3
+  const translate = index * -10;
+  const scale = 1 + index;
+
+  function generateRandomInteger(min, max) {
+    return Math.floor(min + Math.random()*(max - min + 1))
+  }
+
   return (
-  <SVG translate={translate} scale={scale}>
-      {circles.map(({ cx, cy, r }, index) => <Star key={index} cx={cx} cy={cy} r={r} />)}
+    <SVG translate={translate} scale={scale}>
+      {circles.map(({ cx, cy, r }, index) => (
+        <Star key={index} cx={cx} cy={cy} r={r} style={{
+          animationDelay: `${generateRandomInteger(0,3)}s`
+        }} />
+      ))}
     </SVG>
-  )
+  );
 }
