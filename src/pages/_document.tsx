@@ -27,14 +27,10 @@ export default class MyDocument extends Document {
     return (
       <Html >
         <Head>
-          <title>Tim Perdok</title>
           <link rel="icon" href="./favicon.ico" />
           <link rel="manifest" href="./manifest.json"></link>
         </Head>
-        <body style={{
-          overflow: "hidden",
-          height: "100vh"
-        }}>
+        <body>
           <Main />
           <NextScript />
         </body>

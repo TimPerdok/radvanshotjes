@@ -11,8 +11,30 @@ import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
   const breakpoint = useBreakpoint();
+
+  // register service worker
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("./sw.js")
+        .then((registration) => {
+          console.log("service worker registration successful");
+        })
+        .catch((err) => {
+          console.warn("service worker registration failed", err.message);
+        });
+    }
+  }, []);
+  
+
+
   return (
     <>
+    <Head>
+      <title>Tim Perdok</title>
+      
+    </Head>
       <GlobalStyle />
       <Layout>
           <ThemeProvider theme={{ ...theme, breakpoint } as Theme}>
