@@ -4,13 +4,15 @@ import React from 'react';
 import Stars from './animations/Stars';
 import Globe from './animations/Globe';
 
-const Container = styled.div`
-  position: relative;
-  display: contents;
-  height: 100%;
+const Container = styled.div<any>`
   transform-style: preserve-3d;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: contents;
+  width: 100%;
+  height: ${({ height }) => `${height}`}px;
   z-index: -1000;
-  min-height: 200vh;
 `
 
 const GlobeContainer = styled.div`
@@ -24,10 +26,11 @@ const GlobeContainer = styled.div`
   z-index: -999;
   `
 
-export default function Background() {
+export default function Background({ height }) {
   const [stars, setStars]: any = useState([])
+
   useEffect(() => {
-    
+
     let stars: any[] = []
 
     for (let i = 0; i < 3; i++) {
@@ -45,15 +48,15 @@ export default function Background() {
 
 
   return (
-    <Container>
-       {
+    <Container height={height}>
+      {
         stars.map(({ circles }, index) =>
-         <Stars key={index} circles={circles} index={index}></Stars>
+          <Stars height={height} key={index} circles={circles} index={index}></Stars>
         )
       }
-      <GlobeContainer>
+      {/* <GlobeContainer>
         <Globe></Globe>
-      </GlobeContainer>
+      </GlobeContainer> */}
     </Container >
   )
 }

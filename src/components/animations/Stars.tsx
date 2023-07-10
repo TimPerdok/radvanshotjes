@@ -7,13 +7,11 @@ const SVG = styled.svg<any>`
   position: absolute;
   overflow: hidden;
   width: 100%;
-  height: 100%;
+  height: ${({ height }) => `${height}px;`}
   object-fit: cover;
   z-index: -1000;
   transform: ${({ translate, scale }) => `translateZ(${translate}px) scale(${scale});`}
-
-
-  
+  left: ${({ index }) => `-${index * 8}px;`}
 `
 
 const Star = styled.circle<any>`
@@ -44,16 +42,17 @@ const Star = styled.circle<any>`
 
 `
 
-export default function Stars({ circles, index }) {
+export default function Stars({ circles, index, height }) {
   const [stars, setStars] = useState([]);
-  index = index + 3
+  const windowHeight = window.innerHeight;
   const translate = index * -10;
-  const scale = 1 + index;
+
+  const scale = (10 - translate) / 10;
 
   useEffect(() => {
     const stars = circles.map(({ cx, cy, r }, index) => (
       <Star key={index} cx={cx} cy={cy} r={r} style={{
-        animationDelay: `${generateRandomInteger(0, 3)}s`
+        animationDelay: `${generateRandomFloat(0, 3)}s`
       }} />
     ))
     setStars(stars)
@@ -63,9 +62,13 @@ export default function Stars({ circles, index }) {
     return Math.floor(min + Math.random() * (max - min + 1))
   }
 
+  function generateRandomFloat(min, max) {
+    return min + Math.random() * (max - min + 1)
+  }
+
 
   return (
-    <SVG translate={translate} scale={scale}>
+    <SVG height={height} translate={translate} windowHeight={windowHeight} index={index} scale={scale}>
       {stars}
     </SVG>
   );
