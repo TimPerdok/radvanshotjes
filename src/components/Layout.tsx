@@ -21,15 +21,18 @@ const Container = styled.div`
 
 export default function Layout({ children }) {
   const ref = React.useRef<HTMLDivElement>(null);
-  const [height, setHeight] = React.useState(0)
+  const [size, setSize] = React.useState({ height: 0, width: 0 })
 
   useEffect(() => {
-    setHeight(ref.current?.offsetHeight || 0)
-  }, [ref.current?.offsetHeight])
+    setSize({
+      height: ref.current?.offsetHeight || 0,
+      width: ref.current?.offsetWidth || 0
+    })
+  }, [ref.current?.offsetHeight, ref.current?.offsetWidth])
 
   return (
     <Container >
-      <Background height={ref.current?.offsetHeight || 0} />
+      <Background size={size} />
       <Header />
       <div ref={ref}>
 

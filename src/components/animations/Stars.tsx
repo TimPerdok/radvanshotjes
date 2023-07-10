@@ -52,11 +52,11 @@ export default function Stars({ circles, index, height }) {
   useEffect(() => {
     const stars = circles.map(({ cx, cy, r }, index) => (
       <Star key={index} cx={cx} cy={cy} r={r} style={{
-        animationDelay: `${generateRandomFloat(0, 3)}s`
+        animationDelay: `${generateRandomInteger(0, 3)}s`
       }} />
     ))
     setStars(stars)
-  }, [])
+  }, [circles, height])
 
   function generateRandomInteger(min, max) {
     return Math.floor(min + Math.random() * (max - min + 1))
@@ -65,7 +65,6 @@ export default function Stars({ circles, index, height }) {
   function generateRandomFloat(min, max) {
     return min + Math.random() * (max - min + 1)
   }
-
 
   return (
     <SVG height={height} translate={translate} windowHeight={windowHeight} index={index} scale={scale}>

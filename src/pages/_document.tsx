@@ -32,7 +32,6 @@ export default class MyDocument extends Document {
           <link rel="manifest" href="./manifest.json"></link>
         </Head>
         <body style={{
-          background: `linear-gradient(180deg, rgba(22,22,29,1) 0%, rgba(31,31,58,1) 35%, rgba(59,47,74,1) 71%,  rgba(84,62,110,1) 100%)`,
           overflow: "hidden",
           height: "100vh"
         }}>
