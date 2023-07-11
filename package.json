@@ -4,10 +4,13 @@
   "homepage": ".",
   "dependencies": {
     "@react-three/fiber": "^8.13.0",
+    "@reduxjs/toolkit": "^1.9.5",
     "@types/three": "^0.152.0",
     "next": "latest",
+    "next-redux-wrapper": "^8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-redux": "^8.1.1",
     "styled-components": "^5.1.1",
     "three": "^0.152.2",
     "usehooks-ts": "^2.9.1"

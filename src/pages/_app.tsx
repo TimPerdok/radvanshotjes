@@ -7,6 +7,8 @@ import useBreakpoint from "../hooks/useBreakpoint";
 import Background from "../components/Background";
 import GlobalStyle from "../globalStyling";
 import Head from "next/head";
+import { Provider } from "react-redux";
+import store from "../store";
 
 
 export default function App({ Component, pageProps }) {
@@ -26,21 +28,25 @@ export default function App({ Component, pageProps }) {
         });
     }
   }, []);
-  
+
 
 
   return (
     <>
-    <Head>
-      <title>Tim Perdok</title>
-      
-    </Head>
-      <GlobalStyle />
-      <Layout>
+      <Head>
+        <title>Tim Perdok</title>
+
+      </Head>
+      {/* <Provider store={store}> */}
+
+        <GlobalStyle />
+        <Layout>
           <ThemeProvider theme={{ ...theme, breakpoint } as Theme}>
             <Component {...pageProps} />
           </ThemeProvider>
-      </Layout>
+        </Layout>
+      {/* </Provider> */}
+
     </>
   )
 }
