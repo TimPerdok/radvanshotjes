@@ -8,25 +8,41 @@ import Background from "../components/Background";
 import GlobalStyle from "../globalStyling";
 import Head from "next/head";
 import { Provider } from "react-redux";
-import store from "../store";
+import store, { useAppSelector } from "../store";
+import Loading from "../components/animations/Loading";
 
 
 export default function App({ Component, pageProps }) {
   const breakpoint = useBreakpoint();
-
-  // register service worker
+ 
+  
 
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("./sw.js")
-        .then((registration) => {
-          console.log("service worker registration successful");
-        })
-        .catch((err) => {
-          console.warn("service worker registration failed", err.message);
-        });
-    }
+    // if ("serviceWorker" in navigator) {
+    //   navigator.serviceWorker
+    //     .register("./sw.js")
+    //     .then((registration) => {
+    //       console.log("service worker registration successful");
+    //     })
+    //     .catch((err) => {
+    //       console.warn("service worker registration failed", err.message);
+    //     });
+    // }
+
+
+    // if ('serviceWorker' in navigator) {
+    //   navigator.serviceWorker.ready.then(registration => {
+    //     registration.unregister();
+
+    //     if (caches) {
+    //       // Service worker cache should be cleared with caches.delete()
+    //       caches.keys().then(async (names) => {
+    //         await Promise.all(names.map(name => caches.delete(name)));
+    //       });
+    //     }
+    //   });
+    // }
+
   }, []);
 
 
@@ -37,15 +53,16 @@ export default function App({ Component, pageProps }) {
         <title>Tim Perdok</title>
 
       </Head>
-      {/* <Provider store={store}> */}
+      <Provider store={store}>
 
         <GlobalStyle />
+        
         <Layout>
           <ThemeProvider theme={{ ...theme, breakpoint } as Theme}>
             <Component {...pageProps} />
           </ThemeProvider>
         </Layout>
-      {/* </Provider> */}
+      </Provider>
 
     </>
   )

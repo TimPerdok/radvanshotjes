@@ -9,38 +9,54 @@ import { Theme } from '../types/types';
 import GlobalStyle from '../globalStyling';
 import useBreakpoint from '../hooks/useBreakpoint';
 import Background from './Background';
+import { useDispatch, useSelector } from 'react-redux'
+import pageSlice, { setSize } from '../reducers/pageSlice';
+import { useAppSelector } from '../store';
+import Loading from './animations/Loading';
+import LoadedContainer from './LoadedContainer';
+import LoadingScreen from './animations/Loading';
 
 
-const Container = styled.div`
+const Container = styled.div<any>`
   height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   perspective: 10px;
   perspective-origin: middle;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  ${({cLoading}) => cLoading ? `overflow: hidden;` : ''}
 `
 
 export default function Layout({ children }) {
   const ref = React.useRef<HTMLDivElement>(null);
-  const [size, setSize] = React.useState({ height: 0, width: 0 })
+  const dispatch = useDispatch();
+  const { page, load } = useAppSelector((state) => state)
+  const { size } = page;
+  const { loading } = load;
 
   useEffect(() => {
-    setSize({
+    dispatch(setSize({
       height: ref.current?.offsetHeight || 0,
       width: ref.current?.offsetWidth || 0
-    })
+    }))
   }, [ref.current?.offsetHeight, ref.current?.offsetWidth])
 
   return (
-    <Container >
+    <Container cLoading={loading}>
+      <LoadingScreen />
       <Background size={size} />
-      <Header />
-      <div ref={ref}>
-
-        <Main >
-          {children}
-        </Main>
-      </div>
-
+      <LoadedContainer mode={"visibility"}>
+        <Header />
+        <div ref={ref}>
+          <Main >
+            {children}
+          </Main>
+        </div>
+      </LoadedContainer>
     </Container>
   )
 }

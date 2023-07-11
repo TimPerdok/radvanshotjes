@@ -1,12 +1,33 @@
-export default function pageReducer(state = {width: 0, height: 0}, action) {
-  switch (action.type) {
-    // omit other cases
-    case 'page/pageLoading': {
-      // ❌ WARNING: example only - don't do this in a normal reducer!
-      state.height = 5000
-      return state
-    }
-    default:
-      return state
-  }
+import { createSlice } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
+
+type Size = {
+  height: number
+  width: number
 }
+
+type Page = {
+  size: Size
+}
+
+const initialState = {
+  size: {
+    height: 0,
+    width: 0,
+  }
+} as Page
+
+const pageSlice = createSlice({
+  name: 'page',
+  initialState,
+  reducers: {
+    setSize(state: Page, action: PayloadAction<Size>) {
+      const { height, width } = action.payload;
+      if (width) state.size.width = width;
+      if (height) state.size.height = height;
+    },
+  },
+})
+
+export const { setSize } = pageSlice.actions
+export default pageSlice.reducer

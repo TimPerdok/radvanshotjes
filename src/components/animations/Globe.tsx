@@ -1,15 +1,18 @@
 import { useFrame, Canvas } from '@react-three/fiber';
 import React, { useEffect, useState } from 'react';
 import { TextureLoader } from 'three';
-import useBreakpoint from '../../hooks/useBreakpoint';
+import { useAppDispatch } from '../../store';
+import { setImagesLoaded } from '../../reducers/loadSlice';
 
 
 const Sphere = () => {
   const sphereRef: any = React.useRef();
   const [image, setImage] = useState<any>(null);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     const texture = new TextureLoader().loadAsync('./images/globe4.jpg').then((texture) => {
       setImage(texture);
+      // dispatch(setImagesLoaded(true)) // bug hier
     })
   }, [])
   useFrame(() => {

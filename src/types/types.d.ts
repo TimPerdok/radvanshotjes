@@ -13,3 +13,11 @@ export type Theme = {
         xl: number,
     }
 }
+
+import {
+    useSelector as useReduxSelector,
+    TypedUseSelectorHook,
+  } from 'react-redux'
+import { RootState } from 'app/redux/store'
+
+export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector
