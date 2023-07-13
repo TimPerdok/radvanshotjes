@@ -11,6 +11,9 @@ body {
     sans-serif;
   overflow: hidden;
   height: 100vh;
+  min-height: 100vh;
+  background: linear-gradient(180deg, rgba(22,22,29,1) 0%, rgba(31,31,58,1) 35%, rgba(59,47,74,1) 71%,  rgba(84,62,110,1) 100%);
+  background-size: 100% 2000px;
 }
 * {
   box-sizing: border-box;

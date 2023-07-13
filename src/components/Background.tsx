@@ -17,16 +17,6 @@ const Container = styled.div<any>`
   z-index: -1000;
 `
 
-const GlobeContainer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 500px;
-  max-width: 100vw;
-  max-height: 100vh;
-  height: 1000px;
-  z-index: -999;
-  `
 const Space = styled.div<any>`
   position: absolute;
   height: ${({ height }) => height + 100}px;
@@ -41,8 +31,14 @@ export default function Background({ size: { height, width } }) {
   const { load } = useAppSelector((state) => state)
   const { loading } = load;
   const starCount = (height * width) / 10000;
-  console.log(starCount)
+  
+  
+
+
+
   useEffect(() => {
+    
+
     let stars: any[] = []
 
     for (let i = 0; i < 3; i++) {
@@ -67,11 +63,7 @@ export default function Background({ size: { height, width } }) {
           <Stars height={height} key={index} circles={circles} index={index}></Stars>
         )
       }
-      <LoadedContainer >
-        <GlobeContainer>
-          <Globe></Globe>
-        </GlobeContainer>
-      </LoadedContainer>
+        <Globe></Globe>
     </Container >
   )
 }
