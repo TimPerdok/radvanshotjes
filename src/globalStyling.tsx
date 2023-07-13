@@ -21,6 +21,7 @@ body {
   font-size: 1rem;
 }
 h1, h2, h3, h4, h5, h6 {
+  display: inline-block;
   margin: 0;
 }
 h1 {

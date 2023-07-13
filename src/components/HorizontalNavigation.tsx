@@ -17,7 +17,7 @@ export default function HorizontalNavigation({ links }) {
   return (
     <Bar>
       {
-        links?.map((link) => <NavigationItem key={link}><Link href={`/${link}`}>Link</Link></NavigationItem>)
+        Object.entries(links)?.map(([path, label]) => <NavigationItem key={path}><Link href={`/${path}`}>{label}</Link></NavigationItem>)
       }
     </Bar>
   )

@@ -16,165 +16,26 @@ export default function Home() {
   return (
     <>
       <TitleBlock>
-        <b>
+
+        <h1>Hello world</h1>
+        <>
+          <h2>
+            My name is&nbsp;
+          </h2>
           <Highlight>
-            Hello world, my name is
+            <h2>
+              Tim Perdok
+            </h2>
           </Highlight>
-        </b>
-        <h1>
-          Tim Perdok
-        </h1>
-        <h3>
+        </>
+        <h4>
           Software engineer & frontend enthusiast
-        </h3>
+        </h4>
         <Description>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel beatae ullam at facilis commodi aut aliquam facere iusto? Rerum dolores sed voluptas doloremque hic autem, aspernatur illo pariatur molestiae culpa?
         </Description>
       </TitleBlock>
-      <TitleBlock>
-        <b>
-          <Highlight>
-            Hello world, my name is
-          </Highlight>
-        </b>
-        <h1>
-          Tim Perdok
-        </h1>
-        <h3>
-          Software engineer & frontend enthusiast
-        </h3>
-        <Description>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel beatae ullam at facilis commodi aut aliquam facere iusto? Rerum dolores sed voluptas doloremque hic autem, aspernatur illo pariatur molestiae culpa?
-        </Description>
-      </TitleBlock>
-      <TitleBlock>
-        <b>
-          <Highlight>
-            Hello world, my name is
-          </Highlight>
-        </b>
-        <h1>
-          Tim Perdok
-        </h1>
-        <h3>
-          Software engineer & frontend enthusiast
-        </h3>
-        <Description>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel beatae ullam at facilis commodi aut aliquam facere iusto? Rerum dolores sed voluptas doloremque hic autem, aspernatur illo pariatur molestiae culpa?
-        </Description>
-      </TitleBlock>
-      <TitleBlock>
-        <b>
-          <Highlight>
-            Hello world, my name is
-          </Highlight>
-        </b>
-        <h1>
-          Tim Perdok
-        </h1>
-        <h3>
-          Software engineer & frontend enthusiast
-        </h3>
-        <Description>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel beatae ullam at facilis commodi aut aliquam facere iusto? Rerum dolores sed voluptas doloremque hic autem, aspernatur illo pariatur molestiae culpa?
-        </Description>
-      </TitleBlock>
-      <TitleBlock>
-        <b>
-          <Highlight>
-            Hello world, my name is
-          </Highlight>
-        </b>
-        <h1>
-          Tim Perdok
-        </h1>
-        <h3>
-          Software engineer & frontend enthusiast
-        </h3>
-        <Description>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel beatae ullam at facilis commodi aut aliquam facere iusto? Rerum dolores sed voluptas doloremque hic autem, aspernatur illo pariatur molestiae culpa?
-        </Description>
-      </TitleBlock>
-      <TitleBlock>
-        <b>
-          <Highlight>
-            Hello world, my name is
-          </Highlight>
-        </b>
-        <h1>
-          Tim Perdok
-        </h1>
-        <h3>
-          Software engineer & frontend enthusiast
-        </h3>
-        <Description>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel beatae ullam at facilis commodi aut aliquam facere iusto? Rerum dolores sed voluptas doloremque hic autem, aspernatur illo pariatur molestiae culpa?
-        </Description>
-      </TitleBlock>
-      <TitleBlock>
-        <b>
-          <Highlight>
-            Hello world, my name is
-          </Highlight>
-        </b>
-        <h1>
-          Tim Perdok
-        </h1>
-        <h3>
-          Software engineer & frontend enthusiast
-        </h3>
-        <Description>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel beatae ullam at facilis commodi aut aliquam facere iusto? Rerum dolores sed voluptas doloremque hic autem, aspernatur illo pariatur molestiae culpa?
-        </Description>
-      </TitleBlock>
-      <TitleBlock>
-        <b>
-          <Highlight>
-            Hello world, my name is
-          </Highlight>
-        </b>
-        <h1>
-          Tim Perdok
-        </h1>
-        <h3>
-          Software engineer & frontend enthusiast
-        </h3>
-        <Description>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel beatae ullam at facilis commodi aut aliquam facere iusto? Rerum dolores sed voluptas doloremque hic autem, aspernatur illo pariatur molestiae culpa?
-        </Description>
-      </TitleBlock>
-      <TitleBlock>
-        <b>
-          <Highlight>
-            Hello world, my name is
-          </Highlight>
-        </b>
-        <h1>
-          Tim Perdok
-        </h1>
-        <h3>
-          Software engineer & frontend enthusiast
-        </h3>
-        <Description>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel beatae ullam at facilis commodi aut aliquam facere iusto? Rerum dolores sed voluptas doloremque hic autem, aspernatur illo pariatur molestiae culpa?
-        </Description>
-      </TitleBlock>
-      <TitleBlock>
-        <b>
-          <Highlight>
-            Hello world, my name is
-          </Highlight>
-        </b>
-        <h1>
-          Tim Perdok
-        </h1>
-        <h3>
-          Software engineer & frontend enthusiast
-        </h3>
-        <Description>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vel beatae ullam at facilis commodi aut aliquam facere iusto? Rerum dolores sed voluptas doloremque hic autem, aspernatur illo pariatur molestiae culpa?
-        </Description>
-      </TitleBlock>
+
     </>
   )
 }

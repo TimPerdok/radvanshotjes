@@ -6,10 +6,10 @@ import styled from 'styled-components';
 
 
 
-export default function About() {
+export default function Project() {
   return (
     <>
-      {"about"}
+      {"Projects"}
     </>
   )
 }

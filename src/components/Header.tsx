@@ -14,11 +14,11 @@ const Bar = styled.div`
 `
 
 export default function Header({ }) {
-  const links = [
-    "",
-    "about",
-    "projects"
-  ]
+  const links = {
+    "": "Home",
+    about: "About",
+    projects: "Projects"
+  }
   return (
     <Bar>
       <HorizontalNavigation links={links}></HorizontalNavigation>
