@@ -11,7 +11,7 @@ export default function TitleBlock({ children }) {
       {
       children.map((child, index) => {
         return (
-          <FadeInContainer key={index} delay={ (index * 2000)}>
+          <FadeInContainer key={index} delay={ (index * 1.5)}>
             {child}
           </FadeInContainer>
         )

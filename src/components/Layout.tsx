@@ -21,7 +21,7 @@ const Container = styled.div<any>`
   &::-webkit-scrollbar {
     display: none;
   }
-  ${({cLoading}) => cLoading ? `overflow: hidden;` : ''}
+  ${({ cLoading }) => cLoading ? `overflow: hidden;` : ''}
 `
 
 export default function Layout({ children }) {
@@ -32,6 +32,14 @@ export default function Layout({ children }) {
   const { loading } = load;
 
   useEffect(() => {
+
+    const observer = new ResizeObserver((entries) => {
+      const { height, width } = entries[0].contentRect;
+      dispatch(setSize({ height, width }))
+    })
+    
+    if (ref?.current) observer.observe(ref.current)
+    
     dispatch(setSize({
       height: ref.current?.offsetHeight || 0,
       width: ref.current?.offsetWidth || 0
@@ -40,14 +48,16 @@ export default function Layout({ children }) {
 
   return (
     <Container cLoading={loading}>
-      {/* <LoadingScreen /> */}
+      <LoadingScreen />
       <Background size={size} />
-        <Header />
-        <div ref={ref}>
-          <Main >
-            {children}
-          </Main>
-        </div>
+      <Header />
+      <div ref={ref}>
+
+        <Main >
+          {children}
+        </Main>
+
+      </div>
     </Container>
   )
 }

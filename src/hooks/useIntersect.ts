@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppSelector } from '../store';
 
-const useIntersect = (ref, delay = 1000) => {
+const useIntersect = (ref) => {
   const { loading } = useAppSelector(state => state.load)
   const [intersecting, setIntersecting] = useState(false);
   const [first, setFirst] = useState(undefined as boolean | undefined);
@@ -15,16 +15,12 @@ const useIntersect = (ref, delay = 1000) => {
       else setFirst(false)
     });
 
-    let timeout;
     if (!loading && ref?.current) {
-      timeout = setTimeout(() => {
         if (ref?.current) observer.observe(ref?.current);
-      }, delay)
     }
 
     return () => {
-      clearTimeout(timeout);
-      observer?.unobserve(ref?.current);
+      // observer?.unobserve(ref?.current);
       observer?.disconnect();
 
     };

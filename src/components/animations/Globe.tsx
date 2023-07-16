@@ -4,7 +4,6 @@ import { TextureLoader } from 'three';
 import { useAppDispatch } from '../../store';
 import { setEarthCanvasLoaded, setEarthTextureLoaded } from '../../reducers/loadSlice';
 import styled from 'styled-components';
-import { CustomCanvas } from '../CustomCanvas';
 
 
 

@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { useAppSelector } from '../store';
 
 
-const getNone = (mode) => {
+const getNone = (mode, cLoading) => {
+  if (!cLoading) return 'initial';
   if (mode === 'visibility') return 'hidden';
   return 'none';
 }
 
 const Container = styled.div<any>`
-${({mode}) => mode}: ${({cLoading, mode}) => cLoading ? getNone(mode) : 'initial'};
-  
+  ${({mode}) => mode}: ${({cLoading, mode}) => getNone(mode, cLoading)};
 `
 
 
