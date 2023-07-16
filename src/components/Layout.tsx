@@ -40,16 +40,14 @@ export default function Layout({ children }) {
 
   return (
     <Container cLoading={loading}>
-      <LoadingScreen />
+      {/* <LoadingScreen /> */}
       <Background size={size} />
-      <LoadedContainer mode={"visibility"}>
         <Header />
         <div ref={ref}>
           <Main >
             {children}
           </Main>
         </div>
-      </LoadedContainer>
     </Container>
   )
 }

@@ -9,11 +9,13 @@ export default function TitleBlock({ children }) {
   return (
     <Block>
       {
-      children.map((child, index) => (
-        <FadeInContainer key={index} delay={index * 250}>
-          {child}
-        </FadeInContainer>
-      ))
+      children.map((child, index) => {
+        return (
+          <FadeInContainer key={index} delay={ (index * 2000)}>
+            {child}
+          </FadeInContainer>
+        )
+      })
       }
     </Block>
   )

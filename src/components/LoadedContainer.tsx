@@ -16,7 +16,6 @@ ${({mode}) => mode}: ${({cLoading, mode}) => cLoading ? getNone(mode) : 'initial
 
 export default function LoadedContainer({children, mode = "display"}) {
   const {loading} = useAppSelector((state) => state.load)
-  
   return (
     <Container cLoading={loading} mode={mode}>
       {children}

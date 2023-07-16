@@ -1,9 +1,10 @@
-import { useFrame, Canvas } from '@react-three/fiber';
+import { useFrame, Canvas, useLoader, useThree } from '@react-three/fiber';
 import React, { useEffect, useState } from 'react';
 import { TextureLoader } from 'three';
 import { useAppDispatch } from '../../store';
-import { setImagesLoaded } from '../../reducers/loadSlice';
+import { setEarthCanvasLoaded, setEarthTextureLoaded } from '../../reducers/loadSlice';
 import styled from 'styled-components';
+import { CustomCanvas } from '../CustomCanvas';
 
 
 
@@ -21,16 +22,12 @@ const GlobeContainer = styled.div`
 
 const Sphere = () => {
   const sphereRef = React.useRef<any>();
-  const [image, setImage] = useState<any>(null);
   const dispatch = useAppDispatch();
+  const image = useLoader(TextureLoader, './images/globe4.jpg')
 
   useEffect(() => {
-    const texture = new TextureLoader().loadAsync('./images/globe4.jpg').then((texture) => {
-      console.log("done loading")
-      setImage(texture);
-      dispatch(setImagesLoaded(true));
-    });
-  }, [dispatch]);
+    dispatch(setEarthTextureLoaded(!!image));
+  }, [image]);
 
   useFrame(() => {
     if (!sphereRef.current) return;
@@ -38,7 +35,6 @@ const Sphere = () => {
     sphereRef.current.rotation.y += 0.0005; // Rotation speed (adjust as needed)
   });
 
-  if (!image) return null;
 
   return (
     <mesh ref={sphereRef} position={[3, 0, -5]}>
@@ -49,22 +45,18 @@ const Sphere = () => {
 };
 
 export default function Globe() {
-  const [canvasLoaded, setCanvasLoaded] = useState(false);
-
+  const ref = React.useRef<HTMLElement>(null);
+  const dispatch = useAppDispatch();
   const handleCanvasCreated = () => {
-    setCanvasLoaded(true);
+    dispatch(setEarthCanvasLoaded(true));
   };
 
   return (
     <GlobeContainer>
       <Canvas onCreated={handleCanvasCreated}>
-      {canvasLoaded && (
-        <>
-          <pointLight intensity={3} position={[-5, 5, 5]} />
-          <Sphere />
-        </>
-      )}
-    </Canvas>
+        <pointLight intensity={3} position={[-5, 5, 5]} />
+        <Sphere />
+      </Canvas>
     </GlobeContainer>
   );
 }

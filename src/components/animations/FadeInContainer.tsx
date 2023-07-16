@@ -21,6 +21,7 @@ export default function FadeInContainer({
 }) {
   const ref = React.useRef() as any
   const { isIntersecting, first, hasIntersected } = useIntersect(ref, delay)
+
   return (
     <Container ref={ref} className={hasIntersected ? "active" : "hidden"}>
       {children}

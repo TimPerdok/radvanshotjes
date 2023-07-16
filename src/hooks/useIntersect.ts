@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useWindowSize } from 'usehooks-ts';
+import { useAppSelector } from '../store';
 
 const useIntersect = (ref, delay = 1000) => {
+  const { loading } = useAppSelector(state => state.load)
   const [intersecting, setIntersecting] = useState(false);
   const [first, setFirst] = useState(undefined as boolean | undefined);
   const [hasIntersected, setHasIntersected] = useState(false);
@@ -13,15 +14,23 @@ const useIntersect = (ref, delay = 1000) => {
       if (first === undefined) setFirst(true)
       else setFirst(false)
     });
-    setTimeout(() => {
-      if (ref?.current) observer.observe(ref.current);
-    }, delay)
 
+    let timeout;
+    if (!loading && ref?.current) {
+      timeout = setTimeout(() => {
+        if (ref?.current) observer.observe(ref?.current);
+      }, delay)
+    }
 
-  }, [ref.current, intersecting]);
+    return () => {
+      clearTimeout(timeout);
+      observer?.unobserve(ref?.current);
+      observer?.disconnect();
+
+    };
+  }, [ref.current, loading]);
 
   return { isIntersecting: intersecting, first, hasIntersected };
-
 };
 
 export default useIntersect;
