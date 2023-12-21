@@ -1,28 +1,9 @@
 {
-  "compilerOptions": {
-    "target": "es2019",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "incremental": true,
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true
-  },
-  "include": [
-    "components"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "compilerOptions": {
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "es6",
+        "jsx": "react"
+    }
 }
