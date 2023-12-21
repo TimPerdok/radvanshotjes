@@ -17,6 +17,7 @@ declare global {
     addPlayer: any;
     removePlayer: any;
     lasttimeout: any;
+    reset: any;
   }
 }
 

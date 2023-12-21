@@ -64,6 +64,8 @@ export function Start() {
 
   const finishPlayer = (player: Sector) => {
     playerWinSound.play();
+    localStorage.setItem("lastWinner", player.label);
+    localStorage.setItem(player.label, (Number(localStorage.getItem(player.label)) + 1).toString());
     setWinner(player);
   }
 
@@ -85,6 +87,9 @@ export function Start() {
     }
     window.removePlayer = (player: string) => {
       setPlayers(players.filter(p => p !== player))
+    }
+    window.reset = (player: string) => {
+      localStorage.clear();
     }
    
     window.spin = restart;

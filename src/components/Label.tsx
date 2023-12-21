@@ -27,7 +27,7 @@ color: ${({ color }: any) => color};
 `
 
 const Shadow = styled.div`
-  box-shadow: -1px -20px 400px 400px BLACK;
+  box-shadow: 0px 0px 99999px 500px BLACK;
   position: absolute;
   bottom: 0;
   height: 0px;
