@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "lib": [
-      "deno.window"
+      "dom",
+      "dom.iterable",
+      "deno.window",
+      "esnext"
     ],
     "jsx": "react",
     "jsxFactory": "React.createElement",
@@ -9,17 +12,26 @@
   },
   "imports": {
     "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.0",
+    "@emotion/react": "npm:@emotion/react@^11.13.3",
+    "@emotion/styled": "npm:@emotion/styled@^11.13.0",
+    "@hookform/resolvers": "npm:@hookform/resolvers@^3.9.0",
+    "@material-ui/types": "npm:@material-ui/types@^5.1.0",
+    "@mui/material": "npm:@mui/material@^6.1.5",
+    "@types/material-ui": "npm:@types/material-ui@^0.21.17",
     "@types/react": "npm:@types/react@^18.3.12",
     "@types/react-dom": "npm:@types/react-dom@^18.3.1",
     "@types/react-router-dom": "npm:@types/react-router-dom@^5.3.3",
     "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.3",
     "howler": "npm:howler@^2.2.4",
+    "joi": "npm:joi@^17.13.3",
+    "material-ui": "npm:material-ui@^0.20.2",
     "react": "npm:react",
     "react-dom": "npm:react-dom@^18.3.1",
+    "react-hook-form": "npm:react-hook-form@^7.53.1",
     "react-router-dom": "npm:react-router-dom@^6.27.0",
     "styled-components": "npm:styled-components@^6.1.13",
     "tslib": "npm:tslib@^2.8.0",
-    "typescript": "npm:typescript@^5.6.3",
+    "typescript": "npm:typescript",
     "vite": "npm:vite@^5.4.10"
   },
   "tasks": {

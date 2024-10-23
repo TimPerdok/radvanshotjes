@@ -4,10 +4,7 @@ import { Loader } from './Loader.tsx';
 import { Spinner } from './Spinner.tsx';
 import { Howl } from 'howler';
 
-export type Sector = {
-  label: string
-  color: string
-}
+
 
 const randomNumberBetween = (min: number, max: number) => {
   return Math.random() * (max - min) + min;

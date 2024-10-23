@@ -2,29 +2,35 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import {
-Route,
+  Route,
   HashRouter as Router,
   Routes
 } from 'react-router-dom';
-import { Label } from "./components/Label.tsx";
-import { Start } from "./components/Start.tsx";
+import Setup from "./components/Setup.tsx";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: {
+      main: 'rgb(134, 203, 146)',
+    },
+    secondary: {
+      main: '#e45456',
+    },
+  },
+});
 
-function App(): any {
+function App(): React.ReactElement {
   return (
     <React.Fragment>
-      <style>
-        {`
-      html {
-        overflow: hidden;
-      }
-      `}
-      </style>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Start />} />
-        </Routes>
-      </Router>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Setup />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
     </React.Fragment>
   );
 }
