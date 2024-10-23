@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Label } from './Label';
-import { Sector } from './Start';
+import { Label } from './Label.tsx';
+import { Sector } from './Start.tsx';
 import { Howl } from 'howler';
-import { Loader } from './Loader';
+import { Loader } from './Loader.tsx';
 
 const Arrow = styled.div`
   height: 0;

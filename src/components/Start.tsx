@@ -1,9 +1,8 @@
-import * as React from 'react';
-import Wheel from './Wheel';
-import { useEffect } from 'react';
-import { Loader } from './Loader';
-import { Spinner } from './Spinner';
-
+import Wheel from './Wheel.tsx';
+import React, { useEffect, useState } from 'react';
+import { Loader } from './Loader.tsx';
+import { Spinner } from './Spinner.tsx';
+import { Howl } from 'howler';
 
 export type Sector = {
   label: string
@@ -14,15 +13,15 @@ const randomNumberBetween = (min: number, max: number) => {
   return Math.random() * (max - min) + min;
 }
 
-const playerWinSound = new Audio('assets/win.mp3')
-const gameWinSound = new Audio('assets/victory.mp3')
+const playerWinSound = new Audio('assets/win.mp3');
+const gameWinSound = new Audio('assets/victory.mp3');
 
 export function Start() {
-  const [winner, setWinner] = React.useState<Sector>()
-  const [game, setGame] = React.useState<Sector>()
-  const [state, setState] = React.useState(0);
+  const [winner, setWinner] = useState<Sector>()
+  const [game, setGame] = useState<Sector>()
+  const [state, setState] = useState(0);
 
-  const [players, setPlayers] = React.useState<string[]>([
+  const [players, setPlayers] = useState<string[]>([
     "Gerben",
     "Tim",
     "Nick",
@@ -47,7 +46,7 @@ export function Start() {
     "Olav",
   ].sort(() => Math.random() - 0.5))
 
-  const [games, setGames] = React.useState<string[]>([
+  const [games, setGames] = useState<string[]>([
     "Shotje uitdelen",
     "Shotje nemen",
     "Shotje uitdelen",
@@ -76,23 +75,23 @@ export function Start() {
       // 15 min = 900_000
       // 30 min = 1_800_000
       let lastTimeout = randomNumberBetween(900_000, 1_200_000);
-      window.lasttimeout = () => lastTimeout / 1000 + " seconds";
+      globalThis.lasttimeout = () => lastTimeout / 1000 + " seconds";
       setTimeout(restart, lastTimeout);
     }, 10_000)
   }
 
   useEffect(() => {
-    window.addPlayer = (player: string) => {
+    globalThis.addPlayer = (player: string) => {
       setPlayers([...players, player])
     }
-    window.removePlayer = (player: string) => {
+    globalThis.removePlayer = (player: string) => {
       setPlayers(players.filter(p => p !== player))
     }
-    window.reset = (player: string) => {
+    globalThis.reset = (player: string) => {
       localStorage.clear();
     }
    
-    window.spin = restart;
+    globalThis.spin = restart;
 
   }, []);
 

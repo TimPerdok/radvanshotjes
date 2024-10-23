@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Wheel from './Wheel';
+import Wheel from './Wheel.tsx';
 import { useEffect } from 'react';
 import styled from 'styled-components';
 

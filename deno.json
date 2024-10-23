@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "deno.window"
+    ],
+    "jsx": "react",
+    "jsxFactory": "React.createElement",
+    "jsxFragmentFactory": "React.Fragment"
+  },
+  "imports": {
+    "@deno/vite-plugin": "npm:@deno/vite-plugin@^1.0.0",
+    "@types/react": "npm:@types/react@^18.3.12",
+    "@types/react-dom": "npm:@types/react-dom@^18.3.1",
+    "@types/react-router-dom": "npm:@types/react-router-dom@^5.3.3",
+    "@vitejs/plugin-react": "npm:@vitejs/plugin-react@^4.3.3",
+    "howler": "npm:howler@^2.2.4",
+    "react": "npm:react",
+    "react-dom": "npm:react-dom@^18.3.1",
+    "react-router-dom": "npm:react-router-dom@^6.27.0",
+    "styled-components": "npm:styled-components@^6.1.13",
+    "tslib": "npm:tslib@^2.8.0",
+    "typescript": "npm:typescript@^5.6.3",
+    "vite": "npm:vite@^5.4.10"
+  },
+  "tasks": {
+    "dev": "deno run -A --node-modules-dir npm:vite -d"
+  }
+}
