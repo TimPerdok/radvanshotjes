@@ -1,5 +1,5 @@
 import React from "react";
-import { useFormContext, type Path, type UseFormReturn } from "react-hook-form";
+import { useFormContext, type Path, useFieldArray } from "react-hook-form";
 import { Sector, SectorForm } from "../forms/Sector.ts";
 import useLocalStorage, { LocalStorageKeys } from "../hooks/useLocalStorage.ts";
 import DefaultForm from "./form/DefaultForm.tsx";
@@ -10,22 +10,33 @@ import PageContainer from "./layout/PageContainer.tsx";
 import { useEffect } from "react";
 function SectorsForm() {
   const form = useFormContext<SectorForm>();
-  const { control: { register }, getValues } = form;
-  const sectors = getValues("sectors");
+  const { control, watch } = form;
+  const { fields, append } = useFieldArray({
+    control,
+    name: "sectors",
+  });
+  const { register } = control;
+  const addNewSector = () => {
+    append({
+      id: fields.length + 1,
+      label: "",
+      color: "#000000",
+    });
+  };
   return (
     <>
       {
-        sectors?.map((sector, index) => {
-          const getPath = (key: string) => `sectors.${index}.${key}` as Path<SectorForm>;
+        fields.map((s, index) => {
           return (
             <>
-              <input type="hidden" {...register(getPath("id"))} />
+              <input type="hidden" {...register(`sectors.${index}.label`)} />
               <FormInput label="Label" type="text" inputProps={register(`sectors.${index}.label`)} />
-              <FormInput label="Color" type="color"  inputProps={register(`sectors.${index}.color`)} />
+              <FormInput label="Color" type="color" inputProps={register(`sectors.${index}.color`)} />
             </>
           )
         })
       }
+      <Button onClick={addNewSector}>Add entry</Button>
     </>
   );
 }
