@@ -1,4 +1,5 @@
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import React from "react";
 import { createRoot } from "react-dom/client";
 import {
@@ -6,8 +7,9 @@ import {
   HashRouter as Router,
   Routes
 } from 'react-router-dom';
-import Setup from "./components/Setup.tsx";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider as SCThemeProvider } from 'styled-components';
+import Setup from "./components/pages/Setup.tsx";
+import { Game } from "./components/Start.tsx";
 
 const theme = createTheme({
   palette: {
@@ -21,15 +23,47 @@ const theme = createTheme({
   },
 });
 
+export const ROUTES = {
+  SETUP: "/",
+  WHEEL: "/wheel",
+};
+
+ //   "Gerben",
+  //   "Tim",
+  //   "Nick",
+  //   "Rian",
+  //   "Maaike",
+  //   "Ciska",
+  //   "Lotte",
+  //   "Rikus",
+  //   "Danique",
+  //   "Sjoerd",
+  //   "Simon",
+  //   "Jesper",
+  //   "Gertrude",
+  //   "Britt",
+  //   "Twan",
+  //   "Robert-Jan",
+  //   "Jesse",
+  //   "Esther",
+  //   "Marnix",
+  //   "Annemarie",
+  //   "Margo",
+  //   "Olav",
+
+
 function App(): React.ReactElement {
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Setup />} />
-          </Routes>
-        </Router>
+        <SCThemeProvider theme={theme}>
+          <Router>
+            <Routes>
+              <Route path={ROUTES.SETUP} element={<Setup />} />
+              <Route path={ROUTES.WHEEL} element={<Game />} />
+            </Routes>
+          </Router>
+        </SCThemeProvider>
       </ThemeProvider>
     </React.Fragment>
   );

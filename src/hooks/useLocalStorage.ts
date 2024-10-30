@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
 
 export enum LocalStorageKeys {
-  SECTORS = "SECTORS",
+  SETUP = "SETUP",
+  LEADERBOARD = "LEADERBOARD",
+  LAST_WINNER = "LAST_WINNER",
 }
 
 export type LocalStorage = {
-  [LocalStorageKeys.SECTORS]: object,
+  [LocalStorageKeys.SETUP]: object,
 }
 
 type Any = string | number | boolean | object | Any[]
 
 type setValue<T> = (v: T) => void
 
-export default function useLocalStorage<T extends object | Any[]>(lsKey: LocalStorageKeys, initialValue: T) {
+export default function useLocalStorage<T extends object | null | Any[]>(lsKey: LocalStorageKeys, initialValue: T) {
   const [value, setValue]: [v: T, setValue: setValue<T> ] = useState<T>(localStorage.getItem(lsKey)
   ? JSON.parse(localStorage.getItem(lsKey) as string)
   : initialValue);

@@ -3,101 +3,73 @@ import React, { useEffect, useState } from 'react';
 import { Loader } from './Loader.tsx';
 import { Spinner } from './Spinner.tsx';
 import { Howl } from 'howler';
-
-
+import type { Sector, SectorForm } from "../forms/Sector.ts";
+import useLocalStorage, { LocalStorageKeys } from "../hooks/useLocalStorage.ts";
+import type { Leaderboard } from "./Leaderboard.tsx";
+import { DEFAULT_FORM } from "./pages/Setup.tsx";
+import LeaderboardList from "./Leaderboard.tsx";
 
 const randomNumberBetween = (min: number, max: number) => {
   return Math.random() * (max - min) + min;
 }
 
+enum GameStep {
+  CHOOSE_PLAYER = 0,
+  CHOOSE_CHALLENGE = 1,
+  LEADERBOARD = 2
+}
+
+
 const playerWinSound = new Audio('assets/win.mp3');
 const gameWinSound = new Audio('assets/victory.mp3');
 
-export function Start() {
+export function Game() {
+  const [{ players, challenges }] = useLocalStorage<SectorForm>(LocalStorageKeys.SETUP, DEFAULT_FORM);
+  const [leaderboard, setLeaderboard] = useLocalStorage<Leaderboard>(LocalStorageKeys.LEADERBOARD, []);
+  const [lastWinner, setLastWinner] = useLocalStorage<Sector | null>(LocalStorageKeys.LAST_WINNER, null);
+  
+  const [step, setStep] = useState<GameStep>(GameStep.CHOOSE_PLAYER);
+
   const [winner, setWinner] = useState<Sector>()
-  const [game, setGame] = useState<Sector>()
-  const [state, setState] = useState(0);
-
-  const [players, setPlayers] = useState<string[]>([
-    "Gerben",
-    "Tim",
-    "Nick",
-    "Rian",
-    "Maaike",
-    "Ciska",
-    "Lotte",
-    "Rikus",
-    "Danique",
-    "Sjoerd",
-    "Simon",
-    "Jesper",
-    "Gertrude",
-    "Britt",
-    "Twan",
-    "Robert-Jan",
-    "Jesse",
-    "Esther",
-    "Marnix",
-    "Annemarie",
-    "Margo",
-    "Olav",
-  ].sort(() => Math.random() - 0.5))
-
-  const [games, setGames] = useState<string[]>([
-    "Shotje uitdelen",
-    "Shotje nemen",
-    "Shotje uitdelen",
-    "Shotje nemen",
-    "Shotje uitdelen",
-    "Shotje nemen",
-    "Creme shotje pakken"
-  ].sort(() => Math.random() - 0.5))
+  const [challenge, setChallenge] = useState<Sector>()
 
   const restart = () => {
     setWinner(undefined);
-    setGame(undefined);
+    setChallenge(undefined);
+    setStep(GameStep.CHOOSE_PLAYER);
   }
 
-  const finishPlayer = (player: Sector) => {
+  const incrementLeaderboard = (id: number) => {
+    const newLeaderboard = { ...leaderboard };
+    newLeaderboard[id] = (leaderboard[id] || 0) + 1;
+    setLeaderboard(newLeaderboard);
+  }
+
+  const choosePlayer = (player: Sector) => {
     playerWinSound.play();
-    localStorage.setItem("lastWinner", player.label);
-    localStorage.setItem(player.label, (Number(localStorage.getItem(player.label)) + 1).toString());
+    setLastWinner(player);
+    incrementLeaderboard(player.id);
     setWinner(player);
   }
 
   const finishGame = (game: Sector) => {
     gameWinSound.play();
-    setGame(game)
+    setChallenge(game)
     setTimeout(() => {
       // 15 min = 900_000
       // 30 min = 1_800_000
-      let lastTimeout = randomNumberBetween(900_000, 1_200_000);
-      globalThis.lasttimeout = () => lastTimeout / 1000 + " seconds";
-      setTimeout(restart, lastTimeout);
+      setTimeout(restart, randomNumberBetween(900_000, 1_200_000));
     }, 10_000)
   }
 
-  useEffect(() => {
-    globalThis.addPlayer = (player: string) => {
-      setPlayers([...players, player])
-    }
-    globalThis.removePlayer = (player: string) => {
-      setPlayers(players.filter(p => p !== player))
-    }
-    globalThis.reset = (player: string) => {
-      localStorage.clear();
-    }
-   
-    globalThis.spin = restart;
-
-  }, []);
-
   return (
     <>
-      { state === 0 && <Wheel finish={finishPlayer} options={players} />}
-      { state === 1 && <Wheel finish={finishGame} options={games} />}
-      { state === 0 && winner && <Loader time={10000} finish={()=>setState(1)}></Loader>}
-      { state === 0 && winner && game && <Spinner/>}
+      {step === GameStep.CHOOSE_PLAYER && <Wheel finish={choosePlayer} sectors={players} />}
+      {step === GameStep.CHOOSE_CHALLENGE && <Wheel finish={finishGame} sectors={challenges} />}
+      {step === GameStep.LEADERBOARD && challenge && <LeaderboardList leaderboard={leaderboard} challenge={challenge} winner={winner} />}
+
+      {step === GameStep.CHOOSE_PLAYER && winner && <Loader time={10000} finish={() => setStep(1)}></Loader>}
+      {step === GameStep.CHOOSE_PLAYER && winner && challenge && <Spinner />}
     </>
   );
 }

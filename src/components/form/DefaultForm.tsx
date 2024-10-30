@@ -1,9 +1,11 @@
+import { Button } from "@mui/material";
 import Joi from "joi";
 import * as React from "react";
-import { FormProvider, type DefaultValues, type UseFormReturn } from "react-hook-form";
+import { FormProvider, type DefaultValues } from "react-hook-form";
 import type ValidatableForm from "../../forms/ValidatableForm.ts";
 import useSuperForm from "../../hooks/useSuperForm.ts";
-import { FlexColumn, FlexRow } from "../layout/Flex.tsx";
+import { FlexColumn } from "../layout/Flex.tsx";
+import ErrorMessage from "./ErrorMessage.tsx";
 
 type Props<T extends object> = {
   schema: Joi.ObjectSchema<T>,
@@ -29,6 +31,8 @@ export default function DefaultForm<T extends ValidatableForm>({
         <FlexColumn>
           {children}
         </FlexColumn>
+        <ErrorMessage />
+        <Button variant="contained" type="submit">Submit</Button>
       </form>
     </FormProvider>
   </>

@@ -1,6 +1,7 @@
 import { FormLabel, Input } from "@mui/material";
 import * as React from "react";
 import type { FieldValues, Path, UseFormRegister, UseFormRegisterReturn } from "react-hook-form";
+import {FormGroup} from "@mui/material";
 
 type FormInputType = "text" | "color"
 
@@ -24,10 +25,10 @@ export default function FormInput<T extends FieldValues>({
   label,
   inputProps
 }: Props<T>) {
-  return <>
+  return <FormGroup>
     <FormLabel>{label}</FormLabel>
     {
       Inputs[type](inputProps)
     }
-  </>
+  </FormGroup>
 }

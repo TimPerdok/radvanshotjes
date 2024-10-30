@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useEffect, useRef } from 'react';
-import styled from 'styled-components';
+import {styled} from 'styled-components';
 import { Label } from './Label.tsx';
-import { Sector } from './Start.tsx';
 import { Howl } from 'howler';
 import { Loader } from './Loader.tsx';
+import type { Sector } from "../forms/Sector.ts";
 
 const Arrow = styled.div`
   height: 0;
@@ -24,8 +24,6 @@ const Canvas = styled.canvas`
   top: 10vh;
 `
 
-
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;  
@@ -42,7 +40,10 @@ const randomNumberBetween = (min: number, max: number) => {
 }
 
 
-export default function Wheel({finish, options }: any) {
+export default function Wheel({finish, sectors }: {
+  finish: (sector: Sector) => void;
+  sectors: Sector[];
+}) {
   const [currentChoice, setCurrentChoice] = React.useState<Sector>()
   const [velocity, setVelocity] = React.useState(1)
   const [spinning, setSpinning] = React.useState(true)
@@ -52,14 +53,7 @@ export default function Wheel({finish, options }: any) {
   }));
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
-  const sectors = options.map((option: any, index:any) => {
-    const color = `hsl(${index * (360 / options.length)}, 100%, 50%)`
-    return { label: option, color }
-  });
-
-
   useEffect(() => {
-
 
     const rand = (m: any, M: any) => Math.random() * (M - m) + m
     const tot = sectors.length
@@ -69,10 +63,10 @@ export default function Wheel({finish, options }: any) {
     const PI = Math.PI
     const TAU = 2 * PI
     const arc = TAU / sectors.length
-    let previousChoice: null = null;
+    let previousChoice: Sector | null = null;
 
 
-    let friction = randomNumberBetween(0.998, 0.999) // 0.995=soft, 0.99=mid, 0.98=hard
+    const friction = randomNumberBetween(0.998, 0.999) // 0.995=soft, 0.99=mid, 0.98=hard
     let ang = 0 // Angle in radians
     let angVel = 0 // Angular velocity
 
@@ -147,7 +141,7 @@ export default function Wheel({finish, options }: any) {
     engine() // Start engine
     spin();
     
-  }, [canvasRef, options])
+  }, [canvasRef, sectors])
 
   return (
     <>
