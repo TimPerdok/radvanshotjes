@@ -1,6 +1,6 @@
 import * as React from 'react';
-import styled from 'styled-components';
-import { Sector } from './Start.tsx';
+import {styled} from 'styled-components';
+import { Sector } from "../forms/Sector.ts";
 
 const Container = styled.div.attrs(props => ({
   style: {
@@ -34,7 +34,10 @@ const Shadow = styled.div`
   width: 100vw;
 `
 
-export function Label({winner, blur}: any) {
+export function Label({winner, blur}: {
+  winner: Sector,
+  blur: number,
+}) {
   return (
     <>
       <Shadow></Shadow>

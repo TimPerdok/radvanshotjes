@@ -24,7 +24,6 @@ export default function DefaultForm<T extends ValidatableForm>({
   const onError = (error: any) => {
     console.error(error, form.getValues());
   }
-  console.log(form.getValues())
   return <>
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit, onError)}>

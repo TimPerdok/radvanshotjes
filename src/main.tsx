@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import { ThemeProvider as SCThemeProvider } from 'styled-components';
 import Setup from "./components/pages/Setup.tsx";
-import { Game } from "./components/Start.tsx";
+import { Game } from "./components/Game.tsx";
 
 const theme = createTheme({
   palette: {

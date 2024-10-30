@@ -1,4 +1,4 @@
-import Wheel from './Wheel.tsx';
+import Wheel from './wheel/Wheel.tsx';
 import React, { useEffect, useState } from 'react';
 import { Loader } from './Loader.tsx';
 import { Spinner } from './Spinner.tsx';
@@ -23,37 +23,46 @@ enum GameStep {
 const playerWinSound = new Audio('assets/win.mp3');
 const gameWinSound = new Audio('assets/victory.mp3');
 
+const wheelMusic: Howl = new Howl({
+  src: ['assets/rad2.mp3'],
+  preload: true
+});
+
 export function Game() {
   const [{ players, challenges }] = useLocalStorage<SectorForm>(LocalStorageKeys.SETUP, DEFAULT_FORM);
-  const [leaderboard, setLeaderboard] = useLocalStorage<Leaderboard>(LocalStorageKeys.LEADERBOARD, []);
+  const [leaderboard, setLeaderboard] = useLocalStorage<Leaderboard>(LocalStorageKeys.LEADERBOARD, {});
   const [lastWinner, setLastWinner] = useLocalStorage<Sector | null>(LocalStorageKeys.LAST_WINNER, null);
-  
+
   const [step, setStep] = useState<GameStep>(GameStep.CHOOSE_PLAYER);
 
   const [winner, setWinner] = useState<Sector>()
   const [challenge, setChallenge] = useState<Sector>()
 
+  useEffect(() => {
+    wheelMusic.play();
+  }, [])
+
   const restart = () => {
+    wheelMusic.play();
     setWinner(undefined);
     setChallenge(undefined);
     setStep(GameStep.CHOOSE_PLAYER);
   }
 
-  const incrementLeaderboard = (id: number) => {
+  const incrementLeaderboard = (label: string) => {
     const newLeaderboard = { ...leaderboard };
-    newLeaderboard[id] = (leaderboard[id] || 0) + 1;
+    newLeaderboard[label] = (leaderboard[label] || 0) + 1;
     setLeaderboard(newLeaderboard);
   }
 
   const choosePlayer = (player: Sector) => {
-    playerWinSound.play();
+    playerWinSound.play()
     setLastWinner(player);
-    incrementLeaderboard(player.id);
+    incrementLeaderboard(player.label);
     setWinner(player);
   }
 
   const finishGame = (game: Sector) => {
-    gameWinSound.play();
     setChallenge(game)
     setTimeout(() => {
       // 15 min = 900_000
@@ -66,9 +75,14 @@ export function Game() {
     <>
       {step === GameStep.CHOOSE_PLAYER && <Wheel finish={choosePlayer} sectors={players} />}
       {step === GameStep.CHOOSE_CHALLENGE && <Wheel finish={finishGame} sectors={challenges} />}
-      {step === GameStep.LEADERBOARD && challenge && <LeaderboardList leaderboard={leaderboard} challenge={challenge} winner={winner} />}
+      {step === GameStep.LEADERBOARD && winner && challenge && <LeaderboardList
+        players={players}
+        leaderboard={leaderboard}
+        challenge={challenge}
+        winner={winner} />}
 
-      {step === GameStep.CHOOSE_PLAYER && winner && <Loader time={10000} finish={() => setStep(1)}></Loader>}
+      {winner && <Loader time={10000} finish={() => setStep(GameStep.CHOOSE_CHALLENGE)}></Loader>}
+      {winner && challenge && <Loader time={10000} finish={() => setStep(GameStep.LEADERBOARD)}></Loader>}
       {step === GameStep.CHOOSE_PLAYER && winner && challenge && <Spinner />}
     </>
   );
