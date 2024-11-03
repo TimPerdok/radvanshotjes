@@ -1,10 +1,16 @@
 import * as React from 'react';
 import {styled} from 'styled-components';
-import { Sector } from "../forms/Sector.ts";
+import { Sector } from "../forms/SectorFormValues.ts";
 
-const Container = styled.div.attrs(props => ({
+
+interface ContainerProps {
+  color: string,
+  blur: number,
+}
+
+const Container = styled.div.attrs<ContainerProps>(({ blur }) => ({
   style: {
-    filter: `blur(${({ blur }: any) => blur < 3 ? 0 : blur}px)`
+    filter: `blur(${blur < 5 ? 0 : blur}px)`,
   },
 }))`
 
@@ -22,7 +28,7 @@ user-select: none;
 
 transition: filter 0.1s ease-out;
 
-color: ${({ color }: any) => color};
+color: ${props => props.color};
 
 `
 

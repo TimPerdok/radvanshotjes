@@ -4,8 +4,10 @@ import { styled } from 'styled-components';
 import { Label } from '../Label.tsx';
 import { Howl } from 'howler';
 import { Loader } from '../Loader.tsx';
-import type { Sector } from "../../forms/Sector.ts";
+import type { Sector } from "../../forms/SectorFormValues.ts";
 import WheelManager from "./WheelManager.ts";
+import useLocalStorage, { LocalStorageKeys } from "../../hooks/useLocalStorage.ts";
+import { SettingsFormValues } from "../../forms/SettingsFormValues.ts";
 
 const Arrow = styled.div`
   height: 0;
@@ -36,38 +38,45 @@ const Container = styled.div`
   position: relative;
 `
 
-
-
-
 export default function Wheel({ finish, sectors }: {
   finish: (sector: Sector) => void;
   sectors: Sector[];
 }) {
   const [currentChoice, setCurrentSector] = React.useState<Sector>()
+  const [{ minSpeed, maxSpeed, minFriction, maxFriction }]
+    = useLocalStorage(LocalStorageKeys.SETTINGS, new SettingsFormValues());
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
+
+  const wheelRef: React.MutableRefObject<WheelManager | null> = useRef(null);
 
   useEffect(() => {
     if (!canvasRef.current) return;
-    const wheel = new WheelManager(canvasRef, sectors, {
+    wheelRef.current = new WheelManager(canvasRef, sectors, {
       onNewChoice: (sector: Sector) => {
         setCurrentSector(sector)
       },
       onFinish: (sector: Sector) => {
         finish(sector)
       }
-    });
-    wheel.start()
+    },
+      minSpeed / 10,
+      maxSpeed / 10,
+      minFriction,
+      maxFriction
+    );
+    wheelRef.current.start();
     return () => {
-      wheel.stop()
+      wheelRef.current?.stop();
     }
   }, [canvasRef.current]);
 
+  const velocity = wheelRef.current?.getAngularVelocity() ?? 0;
   return (
     <>
       <Container>
         <Arrow></Arrow>
         <Canvas width="1000" height="1000" ref={canvasRef} ></Canvas>
-        <Label blur={200} winner={currentChoice}></Label>
+        <Label blur={velocity * 300} winner={currentChoice}></Label>
       </Container>
     </>
   );

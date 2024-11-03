@@ -6,8 +6,7 @@ interface FullScreenProps {
   children: React.ReactNode;
 }
 
-export default function FullScreen({ children }: FullScreenProps) {
-  const Container = styled.div`
+const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,6 +14,9 @@ export default function FullScreen({ children }: FullScreenProps) {
     width: 100vw;
   `;
 
+
+export default function FullScreen({ children }: FullScreenProps) {
+  
   return (
     <Container>
       <FlexColumn alignHorizontal="center">

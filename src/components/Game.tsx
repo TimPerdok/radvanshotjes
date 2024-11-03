@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { Loader } from './Loader.tsx';
 import { Spinner } from './Spinner.tsx';
 import { Howl } from 'howler';
-import type { Sector, SectorForm } from "../forms/Sector.ts";
+import type { Sector, SectorFormValues } from "../forms/SectorFormValues.ts";
 import useLocalStorage, { LocalStorageKeys } from "../hooks/useLocalStorage.ts";
 import type { Leaderboard } from "./Leaderboard.tsx";
 import { DEFAULT_FORM } from "./pages/Setup.tsx";
 import LeaderboardList from "./Leaderboard.tsx";
+import { SettingsFormValues } from "../forms/SettingsFormValues.ts";
 
 const randomNumberBetween = (min: number, max: number) => {
   return Math.random() * (max - min) + min;
@@ -19,19 +20,24 @@ enum GameStep {
   LEADERBOARD = 2
 }
 
+const initHowl = (src: string) => {
+  return new Howl({
+    src: [src],
+    preload: true,
+    volume: 0.8
+  });
+}
 
-const playerWinSound = new Audio('assets/win.mp3');
-const gameWinSound = new Audio('assets/victory.mp3');
 
-const wheelMusic: Howl = new Howl({
-  src: ['assets/rad2.mp3'],
-  preload: true
-});
+const playerWinSound: Howl = new Audio('assets/win.mp3');
+const gameWinSound: Howl = new Audio('assets/victory.mp3');
+const wheelMusic: Howl = initHowl('assets/rad2.mp3');
 
 export function Game() {
-  const [{ players, challenges }] = useLocalStorage<SectorForm>(LocalStorageKeys.SETUP, DEFAULT_FORM);
+  const [{ players, challenges }] = useLocalStorage<SectorFormValues>(LocalStorageKeys.SETUP, DEFAULT_FORM);
   const [leaderboard, setLeaderboard] = useLocalStorage<Leaderboard>(LocalStorageKeys.LEADERBOARD, {});
-  const [lastWinner, setLastWinner] = useLocalStorage<Sector | null>(LocalStorageKeys.LAST_WINNER, null);
+  const [, setLastWinner] = useLocalStorage<Sector | null>(LocalStorageKeys.LAST_WINNER, null);
+  const [{minInterval, maxInterval}] = useLocalStorage<SettingsFormValues>(LocalStorageKeys.SETTINGS, new SettingsFormValues());
 
   const [step, setStep] = useState<GameStep>(GameStep.CHOOSE_PLAYER);
 
@@ -63,11 +69,15 @@ export function Game() {
   }
 
   const finishGame = (game: Sector) => {
+    gameWinSound.play()
     setChallenge(game)
     setTimeout(() => {
       // 15 min = 900_000
       // 30 min = 1_800_000
-      setTimeout(restart, randomNumberBetween(900_000, 1_200_000));
+      const minutesToMs = (minutes: number) => minutes * 60 * 1000;
+      const timeout = minutesToMs(randomNumberBetween(minInterval, maxInterval));
+      console.log("Next spin at", new Date(Date.now() + timeout));
+      setTimeout(restart, timeout);
     }, 10_000)
   }
 
@@ -80,7 +90,6 @@ export function Game() {
         leaderboard={leaderboard}
         challenge={challenge}
         winner={winner} />}
-
       {winner && <Loader time={10000} finish={() => setStep(GameStep.CHOOSE_CHALLENGE)}></Loader>}
       {winner && challenge && <Loader time={10000} finish={() => setStep(GameStep.LEADERBOARD)}></Loader>}
       {step === GameStep.CHOOSE_PLAYER && winner && challenge && <Spinner />}

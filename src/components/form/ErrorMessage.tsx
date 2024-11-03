@@ -5,20 +5,23 @@ import { styled } from "styled-components";
 import type ValidatableForm from "../../forms/ValidatableForm.ts";
 
 const Container = styled.div`
-  margin-bottom: 1rem;
+  min-height: 24px;
 `;
+
+type Props<T extends ValidatableForm> = {
+  name: Path<T>
+}
 
 export default function ErrorMessage<T extends ValidatableForm>({
   name
-}: {
-  name?: Path<ValidatableForm>
-}) {
+}: Props<T>) {
   const { errors } = useFormState<T>({ name });
-  if (!Object.keys(errors).length) return null;
+  if (!Object.keys(errors).length) return <Container></Container>
   return (
     <Container>
       <Typography color="error">
-        Please fill in the required fields.
+        {/* @ts-ignore */}
+        {name && errors[name]?.message}
       </Typography>
     </Container>
   )

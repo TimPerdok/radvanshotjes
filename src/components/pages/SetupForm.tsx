@@ -1,12 +1,12 @@
 import { Button, TextField } from "@mui/material";
 import React from "react";
-import { useFieldArray, useFormContext, type Control } from "react-hook-form";
+import { useFieldArray, useFormContext, useFormState, type Control } from "react-hook-form";
 import { styled } from "styled-components";
-import { SectorForm, type Sector } from "../../forms/Sector.ts";
+import { SectorFormValues, type Sector } from "../../forms/SectorFormValues.ts";
 import FormGroupRow from "../form/FormGroupRow.tsx";
 import { FlexColumn, FlexRow } from "../layout/Flex.tsx";
 import { getDefaultColor } from "./Setup.tsx";
-
+import { FieldRow } from "../form/FieldRow.tsx";
 
 const ColorInput = styled.input`
   -webkit-appearance: none;
@@ -30,12 +30,12 @@ const ColorInput = styled.input`
 `;
 
 export default function SetupForm() {
-  const form = useFormContext<SectorForm>();
+  const form = useFormContext<SectorFormValues>();
   const { control, watch } = form;
 
 
   return (
-    <div>
+    <FieldRow>
       <FlexRow gapX="2rem">
         <FlexColumn>
           <SectorsForm name={"players"} control={control} />
@@ -44,22 +44,28 @@ export default function SetupForm() {
           <SectorsForm name={"challenges"} control={control} />
         </FlexColumn>
       </FlexRow>
-    </div>
+    </FieldRow>
   );
 }
+
+
 
 export function SectorsForm({
   control,
   name
 }: {
-  control: Control<SectorForm>;
+  control: Control<SectorFormValues>;
   name: "players" | "challenges";
 }) {
-  const { fields, append, remove } = useFieldArray<SectorForm>({
+  const { fields, append, remove } = useFieldArray<SectorFormValues>({
     control,
     name
   });
   const { register } = control;
+  const { errors } = useFormState({ control });
+  const errorIndices = errors[name] && Array.isArray(errors[name])
+    ? errors[name].map((error: any) => error)
+    : [];
 
   const addNewSector = () => {
     append({
@@ -70,16 +76,19 @@ export function SectorsForm({
   };
 
   const title = name === "players" ? "Spelers" : "Challenges";
+
   return <>
     <h3>{title}</h3>
     {
       fields.map((sector: Sector, index: number) => {
         return (
-          <FormGroupRow key={sector.id}>
-            <TextField fullWidth label="Naam" type="filled" {...register(`${name}.${index}.label`)} />
-            <ColorInput {...register(`${name}.${index}.color`)} type="color" />
-            <Button onClick={() => remove(index)}>X</Button>
-          </FormGroupRow>
+          <FieldRow>
+            <FormGroupRow key={sector.id}>
+              <TextField error={!!errorIndices[index]} fullWidth label="Naam" type="filled" {...register(`${name}.${index}.label`)} />
+              <ColorInput {...register(`${name}.${index}.color`)} type="color" />
+              <Button onClick={() => remove(index)}>X</Button>
+            </FormGroupRow>
+          </FieldRow>
         )
       })
     }

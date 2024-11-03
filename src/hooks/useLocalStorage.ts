@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export enum LocalStorageKeys {
   SETUP = "SETUP",
+  SETTINGS = "SETTINGS",
   LEADERBOARD = "LEADERBOARD",
   LAST_WINNER = "LAST_WINNER",
 }

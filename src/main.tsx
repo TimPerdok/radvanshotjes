@@ -10,6 +10,7 @@ import {
 import { ThemeProvider as SCThemeProvider } from 'styled-components';
 import Setup from "./components/pages/Setup.tsx";
 import { Game } from "./components/Game.tsx";
+import { ToastProvider } from "./components/toast/ToastProvider.tsx";
 
 const theme = createTheme({
   palette: {
@@ -28,28 +29,29 @@ export const ROUTES = {
   WHEEL: "/wheel",
 };
 
- //   "Gerben",
-  //   "Tim",
-  //   "Nick",
-  //   "Rian",
-  //   "Maaike",
-  //   "Ciska",
-  //   "Lotte",
-  //   "Rikus",
-  //   "Danique",
-  //   "Sjoerd",
-  //   "Simon",
-  //   "Jesper",
-  //   "Gertrude",
-  //   "Britt",
-  //   "Twan",
-  //   "Robert-Jan",
-  //   "Jesse",
-  //   "Esther",
-  //   "Marnix",
-  //   "Annemarie",
-  //   "Margo",
-  //   "Olav",
+
+//   "Gerben",
+//   "Tim",
+//   "Nick",
+//   "Rian",
+//   "Maaike",
+//   "Ciska",
+//   "Lotte",
+//   "Rikus",
+//   "Danique",
+//   "Sjoerd",
+//   "Simon",
+//   "Jesper",
+//   "Gertrude",
+//   "Britt",
+//   "Twan",
+//   "Robert-Jan",
+//   "Jesse",
+//   "Esther",
+//   "Marnix",
+//   "Annemarie",
+//   "Margo",
+//   "Olav",
 
 
 function App(): React.ReactElement {
@@ -57,12 +59,14 @@ function App(): React.ReactElement {
     <React.Fragment>
       <ThemeProvider theme={theme}>
         <SCThemeProvider theme={theme}>
-          <Router>
-            <Routes>
-              <Route path={ROUTES.SETUP} element={<Setup />} />
-              <Route path={ROUTES.WHEEL} element={<Game />} />
-            </Routes>
-          </Router>
+          <ToastProvider>
+            <Router>
+              <Routes>
+                <Route path={ROUTES.SETUP} element={<Setup />} />
+                <Route path={ROUTES.WHEEL} element={<Game />} />
+              </Routes>
+            </Router>
+          </ToastProvider>
         </SCThemeProvider>
       </ThemeProvider>
     </React.Fragment>

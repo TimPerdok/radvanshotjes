@@ -17,9 +17,9 @@ const SectorSchema = Joi.object<Sector>({
 })
 
 
-export class SectorForm extends ValidatableForm {
+export class SectorFormValues extends ValidatableForm {
 
-  static override schema: Joi.ObjectSchema<SectorForm> = Joi.object({
+  static override schema: Joi.ObjectSchema<SectorFormValues> = Joi.object({
     players: Joi.array().items(SectorSchema),
     challenges: Joi.array().items(SectorSchema),
   });

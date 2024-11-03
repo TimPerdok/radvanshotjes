@@ -9,25 +9,28 @@ export type FlexProps = {
   gapX?: string;
   gapY?: string;
 }
+const FlexRowStyled = styled.div<FlexProps>`
+  display: flex;
+  flex-direction: row;
+  justify-content: ${props => props.alignHorizontal};
+  align-items: ${props => props.alignVertical};
+  width: ${props => props.fullWidth ? "100%" : "auto"};
+  gap: ${props => props.gapY ? props.gapY : "0px"} ${props => props.gapX ? props.gapX : "0px"};
+`;
 
-export function FlexRow({alignVertical, alignHorizontal, fullWidth, children, gapX, gapY}: FlexProps) {
-  const FlexRowStyled = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: ${alignHorizontal};
-    align-items: ${alignVertical};
-    width: ${fullWidth ? "100%" : "auto"};
-    gap: ${gapY ? gapY : "0px"} ${gapX ? gapX : "0px"};
-  `;
-  return <FlexRowStyled>{children}</FlexRowStyled>;
+export function FlexRow(props: FlexProps) {
+  return <FlexRowStyled {...props}></FlexRowStyled>
 }
 
-export function FlexColumn({alignVertical, alignHorizontal, children}: FlexProps) {
-  const FlexColumnStyled = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: ${alignVertical};
-    align-items: ${alignHorizontal};
-  `;
-  return <FlexColumnStyled>{children}</FlexColumnStyled>;
+const FlexColumnStyled = styled.div<FlexProps>`
+  display: flex;
+  flex-direction: column;
+  justify-content: ${props => props.alignVertical};
+  align-items: ${props => props.alignHorizontal};
+  width: ${props => props.fullWidth ? "100%" : "auto"};
+  gap: ${props => props.gapY ? props.gapY : "0px"} ${props => props.gapX ? props.gapX : "0px"};
+`;
+
+export function FlexColumn(props: FlexProps) {
+  return <FlexColumnStyled {...props}></FlexColumnStyled>
 }

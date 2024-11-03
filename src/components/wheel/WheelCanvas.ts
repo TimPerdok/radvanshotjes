@@ -1,4 +1,4 @@
-import type { Sector } from "../../forms/Sector.ts";
+import type { Sector } from "../../forms/SectorFormValues.ts";
 
 export default class WheelCanvas {
   arc: number;

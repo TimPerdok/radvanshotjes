@@ -45,12 +45,19 @@ const Container = styled.div`
   }
 `
 
-export function Spinner() {
+export function Spinner({
+    children
+  }: {
+    children?: React.ReactNode;
+  }) {
   
   return (
     <>
       <Container>
         <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+        <div>
+          {children}
+        </div>
       </Container>
     </>
   );

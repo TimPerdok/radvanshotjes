@@ -1,12 +1,11 @@
 import { styled } from "styled-components";
 import * as React from "react";
 import { FlexRow, type FlexProps } from "../layout/Flex.tsx";
-import { FormGroup } from "@mui/material";
+import { FormGroup as MUIFormGroup } from "@mui/material";
 
 
-const CFormGroup = styled(FormGroup)`
-    margin-bottom: 1rem;
-    width: 100%;
+export const FormGroup = styled(MUIFormGroup)`
+  width: 100%;
 `;
 
 export default function FormGroupRow({
@@ -15,10 +14,10 @@ export default function FormGroupRow({
   children?: React.ReactNode
 }) {
   return (
-    <CFormGroup>
+    <FormGroup>
       <FlexRow gapX={"1rem"} fullWidth alignHorizontal="space-between">
         {children}
       </FlexRow>
-    </CFormGroup>
+    </FormGroup>
   )
 }

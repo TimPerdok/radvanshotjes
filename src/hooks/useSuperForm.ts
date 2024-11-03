@@ -6,6 +6,7 @@ export default function useSuperForm<T extends FieldValues>(schema: Joi.AnySchem
   const form = useForm({
     resolver: joiResolver(schema),
     defaultValues,
+    mode: "onChange"
   })
   return form
 }

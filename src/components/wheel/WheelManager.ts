@@ -1,6 +1,6 @@
 import { Howl } from 'howler';
 import * as React from 'react';
-import type { Sector } from "../../forms/Sector.ts";
+import type { Sector } from "../../forms/SectorFormValues.ts";
 import WheelCanvas from "./WheelCanvas.ts";
 
 type WheelListeners = {
@@ -21,7 +21,10 @@ const SOUNDS = {
   spin: new Howl({
     src: ['assets/spin.mp3'],
     preload: true,
-    volume: 0.05
+    volume: 0.5,
+    sprite: {
+      spin: [200, 1000],
+    }
   })
 }
 
@@ -40,11 +43,16 @@ export default class WheelManager {
   constructor(
     private canvasRef: React.RefObject<HTMLCanvasElement>,
     private sectors: Sector[],
-    private listeners: WheelListeners) {
+    private listeners: WheelListeners,
+    private minSpeed: number = 0.1,
+    private maxSpeed: number = 0.2,
+    private minFriction: number = 0.995,
+    private maxFriction: number = 0.998,
+  ) {
 
     this.previousChoice = null;
 
-    this.friction = this.randomBetween(0.998, 0.998) // 0.995=soft, 0.99=mid, 0.98=hard
+    this.friction = this.randomBetween(this.minFriction, this.maxFriction)
     this.angle = 0 // Angle in radians
     this.angularVelocity = 0 // Angular velocity
     this.state = WheelState.IDLE;
@@ -61,8 +69,12 @@ export default class WheelManager {
     this.spin();
   }
 
-  stop() {
+  public stop() {
     this.state = WheelState.STOPPED;
+  }
+
+  public getAngularVelocity() {
+    return this.angularVelocity
   }
 
   private get sectorCount() {
@@ -76,7 +88,7 @@ export default class WheelManager {
   private setCurrentSector(sector: Sector) {
     if (this.previousChoice == sector) return;
     this.previousChoice = sector
-    SOUNDS.spin.play();
+    SOUNDS.spin.play('spin')
     this.listeners.onNewChoice?.(sector)
   }
 
@@ -125,7 +137,7 @@ export default class WheelManager {
 
   private spin() {
     if (this.state === WheelState.SPINNING) return;
-    this.angularVelocity = this.randomBetween(0.1, 0.2)
+    this.angularVelocity = this.randomBetween(this.minSpeed, this.maxSpeed)
     this.state = WheelState.SPINNING;
   }
 }

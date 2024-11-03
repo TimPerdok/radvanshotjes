@@ -1,17 +1,18 @@
-import { Card, CardContent, Paper, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import { SectorForm, type ID, type Sector } from "../forms/Sector.ts";
+import { Card, CardContent, styled, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import * as React from "react";
-import DefaultForm from "./form/DefaultForm.tsx";
-import FullScreen from "./layout/FullScreen.tsx";
+import { type Sector } from "../forms/SectorFormValues.ts";
 import PageContainer from "./layout/PageContainer.tsx";
-import SetupForm from "./pages/SectorsForm.tsx";
 import { Spinner } from "./Spinner.tsx";
+import { FlexColumn } from "./layout/Flex.tsx";
 
 export type Leaderboard = {
   [name: string]: number;
 }
 
-const CTableRow = styled(TableRow)`
+
+const CTableRow = styled(TableRow, {
+  shouldForwardProp: (prop) => prop !== 'isWinner'
+})`
   background-color: ${({ isWinner }: { isWinner: boolean }) => isWinner ? 'green' : 'transparent'};
 `
 
@@ -37,9 +38,9 @@ export default function LeaderboardList({
 
 
   return <>
-    <FullScreen>
-      <h1>Leaderboard</h1>
-      <PageContainer>
+    <PageContainer>
+      <FlexColumn>
+        <h1>Leaderboard</h1>
         <Card>
           <CardContent>
             <TableContainer>
@@ -66,8 +67,10 @@ export default function LeaderboardList({
             </TableContainer>
           </CardContent>
         </Card>
-      </PageContainer>
-      <Spinner />
-    </FullScreen>
+      </FlexColumn>
+    </PageContainer>
+
+
+    <Spinner ></Spinner>
   </>
 }
