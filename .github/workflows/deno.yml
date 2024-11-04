@@ -39,8 +39,13 @@ jobs:
       - name: Build site
         run: deno task build
 
-      - name: Deploy to Deno Deploy
-        uses: denoland/deployctl@v1
+      # - name: Deploy to Deno Deploy
+      #   uses: denoland/deployctl@v1
+      #   with:
+      #     project: nieuwjaarspel
+      #     entrypoint: 'dist/index.html'
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
         with:
-          project: nieuwjaarspel
-          entrypoint: 'dist/index.html'
+          deno-version: v2.x
