@@ -40,6 +40,8 @@ jobs:
 
       - name: Build site
         run: deno task build
+        env:
+          VITE_BASE_PATH: "/radvanshotjes/"
       
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v2.0.0
@@ -52,7 +54,7 @@ jobs:
       id-token: write
       contents: write
       pages: write
-      
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
