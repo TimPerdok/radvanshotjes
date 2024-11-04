@@ -39,13 +39,8 @@ jobs:
       - name: Build site
         run: deno task build
 
-      - name: Deploy to Deno Deploy
-        uses: denoland/deployctl@v1
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          project: nieuwjaarspel
-          entrypoint: src/main.tsx
-
-      # - name: Setup Deno
-      #   uses: denoland/setup-deno@v2
-      #   with:
-      #     deno-version: v2.x
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
