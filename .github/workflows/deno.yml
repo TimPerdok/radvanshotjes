@@ -41,6 +41,6 @@ jobs:
       - name: Deploy to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: vite-deno-example
+          project: nieuwjaarspel
           root: dist
           entrypoint: https://deno.land/std@0.157.0/http/file_server.ts
