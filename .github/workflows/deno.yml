@@ -1,46 +1,49 @@
-name: Deploy
+name: ci
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   deploy:
+    name: deploy
     runs-on: ubuntu-latest
-
     permissions:
       id-token: write
       contents: read
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
-      - name: Cache .deno/
-        id: cache-deno
-        uses: actions/cache@v3
+      - name: Install Node
+        uses: actions/setup-node@v2
         with:
-          path: .deno/
-          key: ${{ runner.os }}-deno
-      
-      - name: Cache node_modules/
-        id: cache-node-modules
-        uses: actions/cache@v3
-        with:
-          path: node_modules/
-          key: ${{ runner.os }}-node-modules
+          node-version: 16
 
-      - name: Install Deno
-        uses: denoland/setup-deno@v2
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
         with:
-          deno-version: v2.x
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-
 
-      - name: Build production
-        env: 
-          DENO_DIR: .deno
-        run: deno task build
-        
+      - name: Install pnpm and node_modules
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+          run_install: true
+
+      - name: Build site
+        run: pnpm build
+
       - name: Deploy to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: nieuwjaarspel
-          root: dist
-          entrypoint: https://deno.land/std@0.157.0/http/file_server.ts
+          entrypoint: 'dist/index.html'
