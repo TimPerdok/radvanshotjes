@@ -43,7 +43,7 @@ jobs:
         uses: denoland/deployctl@v1
         with:
           project: nieuwjaarspel
-          entrypoint: src/main.tsx
+          entrypoint: main.tsx
 
       # - name: Setup Deno
       #   uses: denoland/setup-deno@v2
