@@ -16,6 +16,6 @@ export class SettingsFormValues extends ValidatableForm {
   public maxInterval: number = 20;
   public minSpeed: number = 1;
   public maxSpeed: number = 2;
-  public minFriction: number = 0.95;
+  public minFriction: number = 0.995;
   public maxFriction: number = 0.998;
 }

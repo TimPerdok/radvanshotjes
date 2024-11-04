@@ -32,7 +32,7 @@ const Inputs: Inputs = {
       {...props}
       type="number"
       variant="filled"
-      inputProps={{ step: 0.01, min: 0, max: 999999 }}
+      inputProps={{ step: 0.001 }}
     />
   ),
 };

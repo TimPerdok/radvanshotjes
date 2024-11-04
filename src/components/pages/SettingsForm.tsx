@@ -8,38 +8,39 @@ export default function SettingsForm() {
   const form = useFormContext<SettingsFormValues>();
   const { control, watch } = form;
   const { register } = form;
-
+  console.log(form.watch())
+  
   return (
     <FlexColumn gapY="1rem">
       <FormInput
         type="number"
         label="Minimum interval (minutes)"
-        inputProps={{ ...register("minInterval") }}
+        inputProps={{ ...register("minInterval", {valueAsNumber: true}) }}
       />
       <FormInput
         type="number"
         label="Maximum interval (minutes)"
-        inputProps={{ ...register("maxInterval") }}
+        inputProps={{ ...register("maxInterval", {valueAsNumber: true}) }}
       />
       <FormInput
         type="float"
         label="Minimum speed"
-        inputProps={{ ...register("minSpeed") }}
+        inputProps={{ ...register("minSpeed", {valueAsNumber: true}) }}
       />
       <FormInput
         type="float"
         label="Maximum speed"
-        inputProps={{ ...register("maxSpeed") }}
+        inputProps={{ ...register("maxSpeed", {valueAsNumber: true}) }}
       />
       <FormInput
         type="float"
         label="Minimum friction"
-        inputProps={{ ...register("minFriction") }}
+        inputProps={{ ...register("minFriction", {valueAsNumber: true}) }}
       />
       <FormInput
         type="float"
         label="Maximum friction"
-        inputProps={{ ...register("maxFriction") }}
+        inputProps={{ ...register("maxFriction", {valueAsNumber: true}) }}
       />
     </FlexColumn>
   );
