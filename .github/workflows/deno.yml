@@ -34,7 +34,7 @@ jobs:
             ${{ runner.os }}-deno-
 
       - name: Install dependencies
-        run: deno cache main.ts
+        run: deno cache src/main.tsx
 
       - name: Build site
         run: deno task build
