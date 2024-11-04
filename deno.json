@@ -38,7 +38,8 @@
     "vite": "npm:vite@^5.4.10"
   },
   "tasks": {
-    "dev": "deno run -A --node-modules-dir npm:vite -d"
+    "dev": "deno run -A --node-modules-dir npm:vite -d",
+    "build": "deno run -A --node-modules-dir npm:vite build"
   },
   "nodeModulesDir": "auto"
 }
