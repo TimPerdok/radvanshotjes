@@ -19,6 +19,7 @@
     "npm:@mui/material@^6.1.5": "6.1.5_@types+react@18.3.12_react@18.3.1_react-dom@18.3.1__react@18.3.1",
     "npm:@mui/system@^6.1.6": "6.1.6_@emotion+react@11.13.3__react@18.3.1_@emotion+styled@11.13.0__@emotion+react@11.13.3___react@18.3.1__react@18.3.1_@types+react@18.3.12_react@18.3.1",
     "npm:@types/material-ui@~0.21.17": "0.21.17",
+    "npm:@types/node@*": "22.5.4",
     "npm:@types/react-dom@^18.3.1": "18.3.1",
     "npm:@types/react-router-dom@^5.3.3": "5.3.3",
     "npm:@types/react@^18.3.12": "18.3.12",
@@ -793,6 +794,12 @@
       "dependencies": [
         "@types/react",
         "@types/react-addons-linked-state-mixin"
+      ]
+    },
+    "@types/node@22.5.4": {
+      "integrity": "sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==",
+      "dependencies": [
+        "undici-types"
       ]
     },
     "@types/parse-json@4.0.2": {
@@ -1582,6 +1589,9 @@
     },
     "ua-parser-js@0.7.39": {
       "integrity": "sha512-IZ6acm6RhQHNibSt7+c09hhvsKy9WUr4DVbeq9U8o71qxyYtJpQeDxQnMrVqnIFMLcQjHO0I9wgfO2vIahht4w=="
+    },
+    "undici-types@6.19.8": {
+      "integrity": "sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw=="
     },
     "update-browserslist-db@1.1.1_browserslist@4.24.2": {
       "integrity": "sha512-R8UzCaa9Az+38REPiJ1tXlImTJXlVfgHZsglwBD/k6nj76ctsH1E3q4doGrukiLQd3sGQYu56r5+lo5r94l29A==",
