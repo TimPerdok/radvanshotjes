@@ -11,12 +11,36 @@ export default function SettingsForm() {
 
   return (
     <FlexColumn gapY="1rem">
-      <FormInput type="number" label="Minimum interval (minutes)" inputProps={{ ...register("minInterval") }} />
-      <FormInput type="number" label="Maximum interval (minutes)" inputProps={{ ...register("maxInterval") }} />
-      <FormInput type="float" label="Minimum speed" inputProps={{ ...register("minSpeed") }} />
-      <FormInput type="float" label="Maximum speed" inputProps={{ ...register("maxSpeed") }} />
-      <FormInput type="float" label="Minimum friction" inputProps={{ ...register("minFriction") }} />
-      <FormInput type="float" label="Maximum friction" inputProps={{ ...register("maxFriction") }} />
+      <FormInput
+        type="number"
+        label="Minimum interval (minutes)"
+        inputProps={{ ...register("minInterval") }}
+      />
+      <FormInput
+        type="number"
+        label="Maximum interval (minutes)"
+        inputProps={{ ...register("maxInterval") }}
+      />
+      <FormInput
+        type="float"
+        label="Minimum speed"
+        inputProps={{ ...register("minSpeed") }}
+      />
+      <FormInput
+        type="float"
+        label="Maximum speed"
+        inputProps={{ ...register("maxSpeed") }}
+      />
+      <FormInput
+        type="float"
+        label="Minimum friction"
+        inputProps={{ ...register("minFriction") }}
+      />
+      <FormInput
+        type="float"
+        label="Maximum friction"
+        inputProps={{ ...register("maxFriction") }}
+      />
     </FlexColumn>
   );
 }

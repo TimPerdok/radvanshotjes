@@ -1,25 +1,20 @@
-
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import React from "react";
 import { createRoot } from "react-dom/client";
-import {
-  Route,
-  HashRouter as Router,
-  Routes
-} from 'react-router-dom';
-import { ThemeProvider as SCThemeProvider } from 'styled-components';
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import { ThemeProvider as SCThemeProvider } from "styled-components";
 import Setup from "./components/pages/Setup.tsx";
 import { Game } from "./components/Game.tsx";
 import { ToastProvider } from "./components/toast/ToastProvider.tsx";
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
     primary: {
-      main: 'rgb(134, 203, 146)',
+      main: "rgb(134, 203, 146)",
     },
     secondary: {
-      main: '#e45456',
+      main: "#e45456",
     },
   },
 });
@@ -28,7 +23,6 @@ export const ROUTES = {
   SETUP: "/",
   WHEEL: "/wheel",
 };
-
 
 //   "Gerben",
 //   "Tim",
@@ -53,7 +47,6 @@ export const ROUTES = {
 //   "Margo",
 //   "Olav",
 
-
 function App(): React.ReactElement {
   return (
     <React.Fragment>
@@ -72,7 +65,6 @@ function App(): React.ReactElement {
     </React.Fragment>
   );
 }
-
 
 createRoot(document.getElementById("root") as HTMLElement).render(
   <App />,

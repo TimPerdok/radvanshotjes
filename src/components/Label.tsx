@@ -1,11 +1,10 @@
-import * as React from 'react';
-import {styled} from 'styled-components';
+import * as React from "react";
+import { styled } from "styled-components";
 import { Sector } from "../forms/SectorFormValues.ts";
 
-
 interface ContainerProps {
-  color: string,
-  blur: number,
+  color: string;
+  blur: number;
 }
 
 const Container = styled.div.attrs<ContainerProps>(({ blur }) => ({
@@ -28,9 +27,9 @@ user-select: none;
 
 transition: filter 0.1s ease-out;
 
-color: ${props => props.color};
+color: ${(props) => props.color};
 
-`
+`;
 
 const Shadow = styled.div`
   box-shadow: 0px 0px 99999px 500px BLACK;
@@ -38,11 +37,11 @@ const Shadow = styled.div`
   bottom: 0;
   height: 0px;
   width: 100vw;
-`
+`;
 
-export function Label({winner, blur}: {
-  winner: Sector,
-  blur: number,
+export function Label({ winner, blur }: {
+  winner: Sector;
+  blur: number;
 }) {
   return (
     <>

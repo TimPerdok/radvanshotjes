@@ -14,9 +14,7 @@ const Container = styled.div`
     width: 100vw;
   `;
 
-
 export default function FullScreen({ children }: FullScreenProps) {
-  
   return (
     <Container>
       <FlexColumn alignHorizontal="center">

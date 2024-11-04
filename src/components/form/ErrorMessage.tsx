@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import * as React from "react";
-import { useFormState, type Path } from "react-hook-form";
+import { type Path, useFormState } from "react-hook-form";
 import { styled } from "styled-components";
 import type ValidatableForm from "../../forms/ValidatableForm.ts";
 
@@ -9,14 +9,14 @@ const Container = styled.div`
 `;
 
 type Props<T extends ValidatableForm> = {
-  name: Path<T>
-}
+  name: Path<T>;
+};
 
 export default function ErrorMessage<T extends ValidatableForm>({
-  name
+  name,
 }: Props<T>) {
   const { errors } = useFormState<T>({ name });
-  if (!Object.keys(errors).length) return <Container></Container>
+  if (!Object.keys(errors).length) return <Container></Container>;
   return (
     <Container>
       <Typography color="error">
@@ -24,5 +24,5 @@ export default function ErrorMessage<T extends ValidatableForm>({
         {name && errors[name]?.message}
       </Typography>
     </Container>
-  )
+  );
 }

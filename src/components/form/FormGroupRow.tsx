@@ -1,17 +1,16 @@
 import { styled } from "styled-components";
 import * as React from "react";
-import { FlexRow, type FlexProps } from "../layout/Flex.tsx";
+import { type FlexProps, FlexRow } from "../layout/Flex.tsx";
 import { FormGroup as MUIFormGroup } from "@mui/material";
-
 
 export const FormGroup = styled(MUIFormGroup)`
   width: 100%;
 `;
 
 export default function FormGroupRow({
-  children
+  children,
 }: {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 }) {
   return (
     <FormGroup>
@@ -19,5 +18,5 @@ export default function FormGroupRow({
         {children}
       </FlexRow>
     </FormGroup>
-  )
+  );
 }

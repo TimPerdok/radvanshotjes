@@ -14,16 +14,14 @@ const SectorSchema = Joi.object<Sector>({
   id: Joi.number().required(),
   label: Joi.string().required(),
   color: Joi.string().required(),
-})
-
+});
 
 export class SectorFormValues extends ValidatableForm {
-
   static override schema: Joi.ObjectSchema<SectorFormValues> = Joi.object({
     players: Joi.array().items(SectorSchema),
     challenges: Joi.array().items(SectorSchema),
   });
 
-  public players: Sector[] = []
-  public challenges: Sector[] = []
+  public players: Sector[] = [];
+  public challenges: Sector[] = [];
 }

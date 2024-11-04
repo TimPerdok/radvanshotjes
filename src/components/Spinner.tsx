@@ -1,7 +1,7 @@
-import * as React from 'react';
-import Wheel from './wheel/Wheel.tsx';
-import { useEffect } from 'react';
-import {styled} from 'styled-components';
+import * as React from "react";
+import Wheel from "./wheel/Wheel.tsx";
+import { useEffect } from "react";
+import { styled } from "styled-components";
 
 const Container = styled.div`
   
@@ -43,18 +43,22 @@ const Container = styled.div`
       transform: rotate(360deg);
     }
   }
-`
+`;
 
 export function Spinner({
-    children
-  }: {
-    children?: React.ReactNode;
-  }) {
-  
+  children,
+}: {
+  children?: React.ReactNode;
+}) {
   return (
     <>
       <Container>
-        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+        <div className="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
         <div>
           {children}
         </div>
