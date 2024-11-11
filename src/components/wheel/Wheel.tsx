@@ -44,6 +44,7 @@ export default function Wheel({ finish, sectors }: {
   sectors: Sector[];
 }) {
   const [currentChoice, setCurrentSector] = React.useState<Sector>();
+  const currentChoiceRef = useRef<Sector | undefined>(undefined);
   const [{ minSpeed, maxSpeed, minFriction, maxFriction }] = useLocalStorage(
     LocalStorageKeys.SETTINGS,
     new SettingsFormValues(),
@@ -76,13 +77,27 @@ export default function Wheel({ finish, sectors }: {
     };
   }, [canvasRef.current]);
 
-  const velocity = wheelRef.current?.getAngularVelocity() ?? 0;
+  const [velocity, setVelocity] = React.useState(0);
+
+  useEffect(() => {
+    let animationFrameId: number;
+
+    const updateVelocity = () => {
+      if (!wheelRef.current) return;
+      setVelocity(wheelRef.current.getAngularVelocity());
+      animationFrameId = requestAnimationFrame(updateVelocity);
+    };
+
+    updateVelocity();
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
   return (
     <>
       <Container>
         <Arrow></Arrow>
         <Canvas width="1000" height="1000" ref={canvasRef}></Canvas>
-        <Label blur={velocity * 300} winner={currentChoice}></Label>
+        <Label blur={velocity * 100} winner={currentChoice}></Label>
       </Container>
     </>
   );

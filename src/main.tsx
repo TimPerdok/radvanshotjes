@@ -3,9 +3,10 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider as SCThemeProvider } from "styled-components";
-import Setup from "./components/pages/Setup.tsx";
 import { Game } from "./components/Game.tsx";
 import { ToastProvider } from "./components/toast/ToastProvider.tsx";
+import Setup from "./components/pages/setup/Setup.tsx";
+import Leaderboard from "./components/pages/leaderboard/Leaderboard.tsx";
 
 const theme = createTheme({
   palette: {
@@ -22,6 +23,7 @@ const theme = createTheme({
 export const ROUTES = {
   SETUP: "/",
   WHEEL: "/wheel",
+  LEADERBOARD: "/leaderboard",
 };
 
 //   "Gerben",
@@ -57,6 +59,7 @@ function App(): React.ReactElement {
               <Routes>
                 <Route path={ROUTES.SETUP} element={<Setup />} />
                 <Route path={ROUTES.WHEEL} element={<Game />} />
+                <Route path={ROUTES.LEADERBOARD} element={<Leaderboard />} />
               </Routes>
             </Router>
           </ToastProvider>

@@ -5,10 +5,10 @@ import { Spinner } from "./Spinner.tsx";
 import { Howl } from "howler";
 import type { Sector, SectorFormValues } from "../forms/SectorFormValues.ts";
 import useLocalStorage, { LocalStorageKeys } from "../hooks/useLocalStorage.ts";
-import type { Leaderboard } from "./Leaderboard.tsx";
-import { DEFAULT_FORM } from "./pages/Setup.tsx";
-import LeaderboardList from "./Leaderboard.tsx";
+import type { Leaderboard } from "./LeaderboardList.tsx";
+import LeaderboardList from "./LeaderboardList.tsx";
 import { SettingsFormValues } from "../forms/SettingsFormValues.ts";
+import { DEFAULT_FORM } from "./pages/setup/Setup.tsx";
 
 const randomNumberBetween = (min: number, max: number) => {
   return Math.random() * (max - min) + min;
@@ -28,6 +28,9 @@ const initHowl = (src: string) => {
   });
 };
 
+// @ts-ignore wehweh
+const shuffle = (array: any[]) => array.toSorted(() => 0.5 - Math.random());
+
 const playerWinSound: Howl = new Audio("assets/win.mp3");
 const gameWinSound: Howl = new Audio("assets/victory.mp3");
 const wheelMusic: Howl = initHowl("assets/rad2.mp3");
@@ -37,6 +40,9 @@ export function Game() {
     LocalStorageKeys.SETUP,
     DEFAULT_FORM,
   );
+  const shuffledPlayers = shuffle(players);
+  const shuffledChallenges = shuffle(challenges);
+
   const [leaderboard, setLeaderboard] = useLocalStorage<Leaderboard>(
     LocalStorageKeys.LEADERBOARD,
     {},
@@ -66,22 +72,26 @@ export function Game() {
     setStep(GameStep.CHOOSE_PLAYER);
   };
 
-  const incrementLeaderboard = (label: string) => {
-    const newLeaderboard = { ...leaderboard };
-    newLeaderboard[label] = (leaderboard[label] || 0) + 1;
-    setLeaderboard(newLeaderboard);
+  const addToLeaderboard = (player: Sector, challenge: Sector) => {
+    setLeaderboard({
+      ...leaderboard,
+      [player.id]: {
+        ...leaderboard[player.id],
+        [challenge.id]: (leaderboard[player.id]?.[challenge.id] || 0) + 1,
+      },
+    });
   };
 
   const choosePlayer = (player: Sector) => {
     playerWinSound.play();
     setLastWinner(player);
-    incrementLeaderboard(player.label);
     setWinner(player);
   };
 
-  const finishGame = (game: Sector) => {
+  const finishGame = (challenge: Sector) => {
     gameWinSound.play();
-    setChallenge(game);
+    setChallenge(challenge);
+    addToLeaderboard(winner, challenge);
     setTimeout(() => {
       // 15 min = 900_000
       // 30 min = 1_800_000
@@ -97,15 +107,13 @@ export function Game() {
   return (
     <>
       {step === GameStep.CHOOSE_PLAYER && (
-        <Wheel finish={choosePlayer} sectors={players} />
+        <Wheel finish={choosePlayer} sectors={shuffledPlayers} />
       )}
       {step === GameStep.CHOOSE_CHALLENGE && (
-        <Wheel finish={finishGame} sectors={challenges} />
+        <Wheel finish={finishGame} sectors={shuffledChallenges} />
       )}
       {step === GameStep.LEADERBOARD && winner && challenge && (
         <LeaderboardList
-          players={players}
-          leaderboard={leaderboard}
           challenge={challenge}
           winner={winner}
         />

@@ -7,11 +7,11 @@ import {
   useFormState,
 } from "react-hook-form";
 import { styled } from "styled-components";
-import { type Sector, SectorFormValues } from "../../forms/SectorFormValues.ts";
-import FormGroupRow from "../form/FormGroupRow.tsx";
-import { FlexColumn, FlexRow } from "../layout/Flex.tsx";
+import { type Sector, SectorFormValues } from "../../../forms/SectorFormValues.ts";
+import FormGroupRow from "../../form/FormGroupRow.tsx";
+import { FlexColumn, FlexRow } from "../../layout/Flex.tsx";
 import { getDefaultColor } from "./Setup.tsx";
-import { FieldRow } from "../form/FieldRow.tsx";
+import { FieldRow } from "../../form/FieldRow.tsx";
 
 const ColorInput = styled.input`
   -webkit-appearance: none;

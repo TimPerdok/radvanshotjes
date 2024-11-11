@@ -1,12 +1,11 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { SettingsFormValues } from "../../forms/SettingsFormValues.ts";
-import FormInput from "../form/FormInput.tsx";
-import { FlexColumn } from "../layout/Flex.tsx";
+import { SettingsFormValues } from "../../../forms/SettingsFormValues.ts";
+import FormInput from "../../form/FormInput.tsx";
+import { FlexColumn } from "../../layout/Flex.tsx";
 
 export default function SettingsForm() {
   const form = useFormContext<SettingsFormValues>();
-  const { control, watch } = form;
   const { register } = form;
   console.log(form.watch())
   

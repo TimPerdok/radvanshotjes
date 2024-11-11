@@ -9,7 +9,7 @@ interface ContainerProps {
 
 const Container = styled.div.attrs<ContainerProps>(({ blur }) => ({
   style: {
-    filter: `blur(${blur < 5 ? 0 : blur}px)`,
+    filter: `blur(${blur}px)`,
   },
 }))`
 

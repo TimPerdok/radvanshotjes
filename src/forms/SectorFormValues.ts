@@ -2,10 +2,10 @@ import Joi from "joi";
 import ValidatableForm from "./ValidatableForm.ts";
 import type { FieldValues } from "react-hook-form";
 
-export type ID = number;
+export type SectorID = string;
 
 export interface Sector {
-  id: ID;
+  id: SectorID;
   label: string;
   color: string;
 }

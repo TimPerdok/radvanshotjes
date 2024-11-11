@@ -8,19 +8,19 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { SectorFormValues } from "../../forms/SectorFormValues.ts";
-import { SettingsFormValues } from "../../forms/SettingsFormValues.ts";
+import { SectorFormValues } from "../../../forms/SectorFormValues.ts";
+import { SettingsFormValues } from "../../../forms/SettingsFormValues.ts";
 import useLocalStorage, {
   LocalStorageKeys,
-} from "../../hooks/useLocalStorage.ts";
-import { useToast } from "../../hooks/useToast.ts";
-import { ROUTES } from "../../main.tsx";
-import DefaultForm from "../form/DefaultForm.tsx";
-import { FlexColumn } from "../layout/Flex.tsx";
-import PageContainer from "../layout/PageContainer.tsx";
+} from "../../../hooks/useLocalStorage.ts";
+import { useToast } from "../../../hooks/useToast.ts";
+import { ROUTES } from "../../../main.tsx";
+import DefaultForm from "../../form/DefaultForm.tsx";
+import { FlexColumn } from "../../layout/Flex.tsx";
+import PageContainer from "../../layout/PageContainer.tsx";
 import SettingsForm from "./SettingsForm.tsx";
 import SetupForm from "./SetupForm.tsx";
-import { FieldRow } from "../form/FieldRow.tsx";
+import { FieldRow } from "../../form/FieldRow.tsx";
 
 export const getDefaultColor = (index: number) => {
   const colors = [
@@ -42,12 +42,12 @@ export const getDefaultColor = (index: number) => {
 
 export const DEFAULT_FORM: SectorFormValues = {
   players: Array.from({ length: 6 }, (_, i) => ({
-    id: i + 1,
+    id: `${i + 1}`,
     label: "",
     color: getDefaultColor(i),
   })),
   challenges: Array.from({ length: 6 }, (_, i) => ({
-    id: i + 1,
+    id: `${i + 1}`,
     label: "",
     color: getDefaultColor(i),
   })),
@@ -97,10 +97,16 @@ function Settings() {
   );
   const [, setLeaderboard] = useLocalStorage(LocalStorageKeys.LEADERBOARD, []);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const clearLeaderboard = () => {
     setLeaderboard([]);
     toast("Leaderboard cleared");
+  };
+
+  const clearAll = () => {
+    localStorage.clear();
+    toast("All cache cleared");
   };
 
   const submit = (formData: SettingsFormValues) => {
@@ -126,7 +132,9 @@ function Settings() {
               <SettingsForm />
             </DefaultForm>
           </FieldRow>
+          <Button onClick={() => navigate(ROUTES.LEADERBOARD)}>To Leaderboard</Button>
           <Button onClick={clearLeaderboard}>Clear leaderboard</Button>
+          <Button onClick={clearAll}>Clear all cache</Button>
         </AccordionDetails>
       </Accordion>
     </div>
