@@ -16,6 +16,7 @@ import { FlexColumn } from "./layout/Flex.tsx";
 import PageContainer from "./layout/PageContainer.tsx";
 import { DEFAULT_FORM } from "./pages/setup/Setup.tsx";
 import { Spinner } from "./Spinner.tsx";
+import { TableRowProps } from "@mui/material/TableRow";
 
 type LeaderboardEntry = {
   [challengeId: SectorID]: number;
@@ -25,7 +26,17 @@ export type Leaderboard = {
   [playerId: SectorID]: LeaderboardEntry;
 };
 
-import { TableRowProps } from "@mui/material/TableRow";
+const StyledTable = styled(Table)`
+  * > td, * > th {
+    font-size: 1.2rem;
+  }
+  * > th {
+    font-weight: 600;
+  }
+`;
+
+
+
 
 interface LeaderboardTableRowProps extends TableRowProps {
   iswinner: boolean;
@@ -73,10 +84,10 @@ export default function LeaderboardList({
       <PageContainer>
         <FlexColumn>
           <h1>Leaderboard</h1>
-          <Card>
+          <Card style={{width: "80vw", marginBottom: "64px"}}>
             <CardContent>
               <TableContainer>
-                <Table>
+                <StyledTable>
                   <TableHead>
                     <TableRow>
                       <TableCell>Naam</TableCell>
@@ -137,7 +148,7 @@ export default function LeaderboardList({
                       }
                     </TableRow>
                   </TableBody>
-                </Table>
+                </StyledTable>
               </TableContainer>
             </CardContent>
           </Card>
