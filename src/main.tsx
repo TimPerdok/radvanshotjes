@@ -8,7 +8,7 @@ import { ToastProvider } from "./components/toast/ToastProvider.tsx";
 import Setup from "./components/pages/setup/Setup.tsx";
 import Leaderboard from "./components/pages/leaderboard/Leaderboard.tsx";
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
     mode: "dark",
     primary: {

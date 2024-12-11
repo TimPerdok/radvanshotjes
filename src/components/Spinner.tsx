@@ -1,7 +1,8 @@
 import * as React from "react";
-import Wheel from "./wheel/Wheel.tsx";
 import { useEffect } from "react";
 import { styled } from "styled-components";
+
+const size = 220;
 
 const Container = styled.div`
   
@@ -11,15 +12,15 @@ const Container = styled.div`
 
   .lds-ring {
     position: relative;
-    width: 160px;
-    height: 160px;
+    width: ${size + 18}px;
+    height: ${size + 18}px;
   }
   .lds-ring div {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 128px;
-    height: 128px;
+    width: ${size}px;
+    height: ${size}px;
     margin: 8px;
     border: 8px solid #fff;
     border-radius: 50%;
@@ -45,6 +46,20 @@ const Container = styled.div`
   }
 `;
 
+const Centered = styled.div`
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`
+const Text = styled.p`
+    font-size: 24px;
+    color: white;
+    text-align: center;
+`
+
 export function Spinner({
   children,
 }: {
@@ -53,6 +68,7 @@ export function Spinner({
   return (
     <>
       <Container>
+        <Centered><Text>Volgende draai <br/> komt eraan!</Text></Centered>
         <div className="lds-ring">
           <div></div>
           <div></div>

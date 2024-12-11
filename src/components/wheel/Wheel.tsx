@@ -97,7 +97,7 @@ export default function Wheel({ finish, sectors }: {
       <Container>
         <Arrow></Arrow>
         <Canvas width="1000" height="1000" ref={canvasRef}></Canvas>
-        <Label blur={velocity * 100} winner={currentChoice}></Label>
+        <Label blur={velocity * (sectors.length * 10)} winner={currentChoice}></Label>
       </Container>
     </>
   );

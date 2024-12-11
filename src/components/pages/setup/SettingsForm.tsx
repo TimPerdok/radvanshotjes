@@ -7,7 +7,6 @@ import { FlexColumn } from "../../layout/Flex.tsx";
 export default function SettingsForm() {
   const form = useFormContext<SettingsFormValues>();
   const { register } = form;
-  console.log(form.watch())
   
   return (
     <FlexColumn gapY="1rem">

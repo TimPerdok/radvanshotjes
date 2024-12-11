@@ -11,11 +11,11 @@ import {
 } from "@mui/material";
 import * as React from "react";
 import { SectorFormValues, SectorID, type Sector } from "../forms/SectorFormValues.ts";
-import PageContainer from "./layout/PageContainer.tsx";
-import { Spinner } from "./Spinner.tsx";
-import { FlexColumn } from "./layout/Flex.tsx";
 import useLocalStorage, { LocalStorageKeys } from "../hooks/useLocalStorage.ts";
+import { FlexColumn } from "./layout/Flex.tsx";
+import PageContainer from "./layout/PageContainer.tsx";
 import { DEFAULT_FORM } from "./pages/setup/Setup.tsx";
+import { Spinner } from "./Spinner.tsx";
 
 type LeaderboardEntry = {
   [challengeId: SectorID]: number;
@@ -25,11 +25,17 @@ export type Leaderboard = {
   [playerId: SectorID]: LeaderboardEntry;
 };
 
+import { TableRowProps } from "@mui/material/TableRow";
+
+interface LeaderboardTableRowProps extends TableRowProps {
+  iswinner: boolean;
+}
+
 const LeaderboardTableRow = styled(TableRow, {
-  shouldForwardProp: (prop) => prop !== "isWinner",
-})`
-  background-color: ${({ isWinner }: { isWinner: boolean }) =>
-    isWinner ? "green" : "transparent"};
+  shouldForwardProp: (prop) => prop !== 'iswinner',
+})<LeaderboardTableRowProps>`
+  background-color: ${({ iswinner, theme }) =>
+    iswinner ? theme.palette.primary.light : "transparent"};
 `;
 
 export default function LeaderboardList({
@@ -88,11 +94,10 @@ export default function LeaderboardList({
                     {
                       leaderboardEntries.map(([playerId, playerEntry]) => {
                         const player = players.find((player) => player.id === playerId)
-                        console.log(players, playerId);
 
                         if (!player) return null;
                         return (
-                          <LeaderboardTableRow key={player.id} isWinner={winner?.id === player.id}>
+                          <LeaderboardTableRow key={player.id} iswinner={winner?.id === player.id}>
                             <TableCell>{player.label}</TableCell>
                             <TableCell>
                               {Object.values(playerEntry).reduce((acc, val) => acc + val, 0)}
