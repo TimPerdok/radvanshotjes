@@ -44,7 +44,7 @@ export default function Wheel({ finish, sectors }: {
   sectors: Sector[];
 }) {
   const [currentChoice, setCurrentSector] = React.useState<Sector>();
-  const currentChoiceRef = useRef<Sector | undefined>(undefined);
+  // const currentChoiceRef = useRef<Sector | undefined>(undefined);
   const [{ minSpeed, maxSpeed, minFriction, maxFriction }] = useLocalStorage(
     LocalStorageKeys.SETTINGS,
     new SettingsFormValues(),
@@ -52,7 +52,7 @@ export default function Wheel({ finish, sectors }: {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
   const wheelRef: React.MutableRefObject<WheelManager | null> = useRef(null);
-
+  
   useEffect(() => {
     if (!canvasRef.current) return;
     wheelRef.current = new WheelManager(
@@ -97,7 +97,9 @@ export default function Wheel({ finish, sectors }: {
       <Container>
         <Arrow></Arrow>
         <Canvas width="1000" height="1000" ref={canvasRef}></Canvas>
-        <Label blur={velocity * (sectors.length * 10)} winner={currentChoice}></Label>
+        {
+        currentChoice && <Label blur={velocity * (sectors.length * 10)} winner={currentChoice}></Label>
+        }
       </Container>
     </>
   );

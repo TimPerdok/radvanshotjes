@@ -47,10 +47,10 @@ export function Game() {
     LocalStorageKeys.LEADERBOARD,
     {},
   );
-  const [, setLastWinner] = useLocalStorage<Sector | null>(
-    LocalStorageKeys.LAST_WINNER,
-    null,
-  );
+  // const [, setLastWinner] = useLocalStorage<Sector | null>(
+  //   LocalStorageKeys.LAST_WINNER,
+  //   null,
+  // );
   const [{ minInterval, maxInterval }] = useLocalStorage<SettingsFormValues>(
     LocalStorageKeys.SETTINGS,
     new SettingsFormValues(),
@@ -84,14 +84,14 @@ export function Game() {
 
   const choosePlayer = (player: Sector) => {
     playerWinSound.play();
-    setLastWinner(player);
+    // setLastWinner(player);
     setWinner(player);
   };
 
   const finishGame = (challenge: Sector) => {
     gameWinSound.play();
     setChallenge(challenge);
-    addToLeaderboard(winner, challenge);
+    // addToLeaderboard(winner, challenge);
     setTimeout(() => {
       // 15 min = 900_000
       // 30 min = 1_800_000
