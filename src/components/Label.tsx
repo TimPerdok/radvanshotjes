@@ -16,14 +16,13 @@ const Container = styled.div.attrs<ContainerProps>(({ blur }) => ({
 font-family: 'Roboto', sans-serif;
 position: absolute;
 bottom: 10rem;
-font-size: 20rem;
+font-size: 5rem;
 
 text-align: center;
 text-shadow: 0px 0px 20px black;
 
 user-select: none;
-
-
+z-index: 999999;
 
 transition: filter 0.1s ease-out;
 
