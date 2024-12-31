@@ -81,7 +81,7 @@ export default function LeaderboardList({
 
   return (
     <>
-      <PageContainer>
+      {/* <PageContainer>
         <FlexColumn>
           <h1>Leaderboard</h1>
           <Card style={{width: "80vw", marginBottom: "64px"}}>
@@ -153,7 +153,7 @@ export default function LeaderboardList({
             </CardContent>
           </Card>
         </FlexColumn>
-      </PageContainer>
+      </PageContainer> */}
       {
         winner && <Spinner></Spinner>
       }
